@@ -68,7 +68,7 @@ classdef CCMParams_Csome < CCMParams
             value = -(obj.alpha+ obj.kmC)/(obj.Rc*((obj.kmC+obj.alpha)*obj.GC + obj.D/obj.Rb^2));
         end
         function value = get.beta_c2(obj)
-            value = -obj.alpha*((obj.alpha+ obj.kmC)*obj.G/((obj.alpha+obj.kmC)*obj.GC + obj.D/obj.Rb^2)-1)*obj.Kca/(obj.Kba*obj.Rc)/(obj.kmH*obj.G +obj.D/obj.Rb^2); 
+            value = -obj.alpha*((obj.alpha+ obj.kmC)*obj.GC/((obj.alpha+obj.kmC)*obj.GC + obj.D/obj.Rb^2)-1)*obj.Kca/(obj.Kba*obj.Rc)/(obj.kmH*obj.GH +obj.D/obj.Rb^2); 
         end
         function value = get.epsilon_c(obj)
             value = -obj.kmC*obj.Cout/(obj.Kca*obj.Rc*((obj.alpha+ obj.kmC)*obj.GC+obj.D/obj.Rb^2));

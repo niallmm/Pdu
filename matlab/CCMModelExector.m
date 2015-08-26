@@ -23,10 +23,10 @@ classdef CCMModelExector
         end
     end
     
-    methods (Abstract)
-        % Run the analytical model
-        RunAnalytical(obj)
-    end
+%     methods (Abstract)
+%         % Run the analytical model
+%         RunAnalytical(obj)
+%     end
     
 end
 
