@@ -44,10 +44,10 @@ ccm_params_just_rbc.KO = 374;
 pHoutv = linspace(6, 8.5, 15);
 kmH = zeros(30);
 
-ccm_params.Ci_tot = 15;
-ccm_params_scaffold.Ci_tot = 15;
-ccm_params_cell.Ci_tot = 15;
-ccm_params_just_rbc.Ci_tot = 15;
+% ccm_params.Ci_tot = 15;
+% ccm_params_scaffold.Ci_tot = 15;
+% ccm_params_cell.Ci_tot = 15;
+% ccm_params_just_rbc.Ci_tot = 15;
 % 
 Hmax = 30000;   % Maximum cytoplasmic bicarbonate conc. in uM
 kc_opt = 1e-4;  % optimal carboxysome permeability from previous work.

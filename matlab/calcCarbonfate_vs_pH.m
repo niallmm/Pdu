@@ -41,7 +41,8 @@ ccm_params_just_rbc.pH_out =7;
 % I know of no cells with an intracellular pH below 6. The only reason 
 % we start the pH sweep below 6 is that the original model was using an
 % implied pH of ~= 4 (calculated from the bicarbonate permeability used).
-pH = linspace(4, 8.3, 40);
+% pH = linspace(4, 8.3, 40);
+pH = 8;
 kmH = zeros(30);
 
 Hmax = 30000;   % Maximum cytoplasmic bicarbonate conc. in uM

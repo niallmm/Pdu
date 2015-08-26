@@ -84,16 +84,17 @@ for m = 1
     
     figure(fignum+1) 
   %  plot(phoutv, Htransport, 'b')
-    plot(phoutv, -Cconversion, 'r')
+    semilogy(phoutv, Cconversion, 'r')
+    
     hold on
-    plot(phoutv, Cleak, '--r')
-    %plot(phvout, Hleak, '--b')
-    plot(phoutv, Cleak_csome, '-.r')
-%     plot(phoutv, log(Cconversion+Cleak+Cleak_csome), 'k')
+    plot(phoutv, Htransport, 'b')
+%     plot(phoutv, Cleak, '--r')
+%     %plot(phvout, Hleak, '--b')
+%     plot(phoutv, Cleak_csome, '-.r')
+% %     plot(phoutv, log(Cconversion+Cleak+Cleak_csome), 'k')
     xlabel('external pH')
-    ylabel('CO_2 fluxes [picomoles/s]')
-    hleg = legend('CO_2 to HCO_3^- conversion flux', 'CO_2 leakage out of cell flux',...
-        'CO_2 leakage into cytosol from carboxysome', 'total CO_2 flux', 'Location', 'Best');
+    ylabel('CO_2 and HCO_3^- fluxes [picomoles/s]')
+    hleg = legend('CO_2 to HCO_3^- conversion flux','HCO_3^- active transport flux ', 'Location', 'Best');
     legend('boxoff')
     
     
