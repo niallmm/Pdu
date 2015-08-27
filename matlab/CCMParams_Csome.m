@@ -1,4 +1,4 @@
-classdef CCMParams_Csome < CCMParams
+classdef CCMParams_Csome < CCMParams &  matlab.mixin.SetGet
     % Object defining CCM parameters - encapsulates various dependent
     % calculations of rates and volumes. 
     

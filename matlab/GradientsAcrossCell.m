@@ -1,4 +1,9 @@
 % Check Gradients across cell
+
+% add paths
+add_paths
+
+% define parameters
 p = CCMParams_Csome;
 p.jc = 1e-4;
 p.kcC = 1e-4;
@@ -6,19 +11,21 @@ p.kcH = p.kcC;
 p.pH = 8;
 p.alpha =0;
 
-
+% run the simulation
 exec = CCMModelExecutor(p);
 res = exec.RunNumerical();
 
+% get the concentrations in the carboxysome (which is assumed to be
+% constant)
 Ccsome = res.c_csome_mM;
 Hcsome = res.h_csome_mM;
 
-
+% get the concentration across the cell (as a function of the radius)
 rb = res.rb;
 Ccyto = res.c_cyto_mM;
 Hcyto = res.h_cyto_mM;
 
-
+%plot
 figure(5)
 semilogy(rb, Ccyto, 'r')
 hold on
