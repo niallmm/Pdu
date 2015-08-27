@@ -18,7 +18,8 @@ p.alpha =0;
 % =========================================================================
 
 % Define parameter sweeps in cell array
-sweep = {'jc',logspace(-4,-2, 2)};
+numberofsims= 3;
+sweep = {'jc',logspace(-4,-2, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (CCMParams)
 
@@ -42,7 +43,7 @@ for ii = 1:length(sweep{1,2})
     % save results
     save([saveLocation 'res.mat'], 'res');
     % plot results
-    semilogy(sweep{1,2}(ii), res.c_csome_mM, 'or')
+    loglog(sweep{1,2}(ii), res.c_csome_mM, 'or')
     hold on
     plot(sweep{1,2}(ii), res.h_csome_mM, 'ob')
 end
