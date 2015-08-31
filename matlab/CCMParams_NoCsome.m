@@ -19,6 +19,8 @@ classdef CCMParams_NoCsome < CCMParams
         Vmax    % uM/s RuBisCO max reaction rate/concentration (inside csome)
         Vba     % maximum rate of bicarbonate dehydration by CA (inside csome)
         Vca     % maximum rate of carbon dioxide hydration by CA (inside csome)
+        GC  % grouped params = D/(Rc^2 kc) + 1/Rc - 1/Rb [1/cm]
+        GH
     end
     
     methods
@@ -41,6 +43,14 @@ classdef CCMParams_NoCsome < CCMParams
         function value = get.Vca(obj)
             value = obj.VcaCell;
         end
+        function value = get.GC
+            value = 'NaN';
+            warning('trying to call GC in the No-Csome case')
+        end
+        function value = get.GH
+            value = 'NaN';
+            warning('trying to call GH in the No-Csome case')
+        end 
         
         function value = get.xi(obj)
             value = obj.D * obj.Kba / (obj.VbaCell * obj.Rb^2);

@@ -6,8 +6,8 @@ classdef FullCCMModelExecutor < CCMModelExector
         
         function result = RunAnalytical(obj)
             p = obj.ccm_params;
-            [HcytoRb, CcytoRb, H, C] = CHconc_Csome(p.jc, p);
-            result = FullCCMAnalyticalSolution(p, HcytoRb, CcytoRb, H, C);
+ %           [HcytoRb, CcytoRb, H, C] = CHconc_Csome(p.jc, p);
+            result = FullCCMAnalyticalSolution(p);
         end
     end
     

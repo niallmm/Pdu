@@ -6,8 +6,7 @@ classdef NoCsomeModelExecutor < CCMModelExector
         
         function result = RunAnalytical(obj)
             p = obj.ccm_params;
-            [Hcyto, Ccyto] = CHconc_NoCsome(p.jc, p);
-            result = NoCsomeAnalyticalSolution(obj.ccm_params, Hcyto, Ccyto);
+            result = NoCsomeAnalyticalSolution(obj.ccm_params);
         end
     end
     

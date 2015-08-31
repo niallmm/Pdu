@@ -1,4 +1,4 @@
-classdef CCMModelExector
+classdef CCMModelExecutor
     % class that executes the CCM model with given params
     % stores and outputs data appropriately.
     properties
@@ -6,7 +6,7 @@ classdef CCMModelExector
     end
     
     methods
-        function obj = CCMModelExector(ccm_params)
+        function obj = CCMModelExecutor(ccm_params)
             obj.ccm_params = ccm_params;
         end
         
@@ -15,7 +15,8 @@ classdef CCMModelExector
         % Note: numerical code is generic to the various cases we consider
         % (e.g. no carboxysome, no ccm, etc) so this method can be
         % implemented generically.
-        function results = RunNumerical(obj, xnum)
+        function results = RunNumerical(obj)
+            xnum = 100; % number of points in discritization
             p = obj.ccm_params;  % shorthand
             initv = zeros(2, xnum); % initialize vectors for CO2 and HCO3- concentrations
             [r, h, c, fintime, t] = driverssnondim(xnum, p, initv);
@@ -23,10 +24,6 @@ classdef CCMModelExector
         end
     end
     
-    methods (Abstract)
-        % Run the analytical model
-        RunAnalytical(obj)
-    end
     
 end
 
