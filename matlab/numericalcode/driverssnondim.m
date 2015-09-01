@@ -1,4 +1,4 @@
-function [r1, h1, c1, fintime, t] = driverssnondim(xnum, ccm_params, initv)
+function [r1, h1, c1, fintime, t] = driverssnondim(xnum, pdu_params, initv)
 %==========================================================================
 % Non-linear Diffusion Equation Solver
 % uses matlab ode functions
@@ -8,17 +8,13 @@ function [r1, h1, c1, fintime, t] = driverssnondim(xnum, ccm_params, initv)
 % plots solution
 % for two concentrations
 % 
-% concentrations returned are non-dimensional and need to be converted.
+% concentrations returned are non-dimensional and need to be converted.\
+% pass parameters to ODEs (spherediffssnondim) in PduParams struct -CMJ
 %==========================================================================
 tic;
 %==========================================================================
 % Control parameters
 %==========================================================================
-
-p = ccm_params;
-parameters = [xnum p.xi p.gamma p.kappa p.beta_h ...
-    p.epsilon_h p.beta_c p.epsilon_c p.beta_c2 p.Vmax ...
-    p.Km p.Vba p.Kca];
 
 finaltime = 100000000000;        % total simulation time
 time = linspace(0,finaltime,100);
@@ -26,8 +22,6 @@ time = linspace(0,finaltime,100);
 abstol = 1e-12;          % error tolerance
 reltol = 1e-13;
 
-%xnum =400;             % number of mesh points
-xnum = parameters(1);
 
 %==========================================================================
 % call setgrid.m to intialize the grid x. where u(x).
@@ -37,11 +31,9 @@ xnum = parameters(1);
 
 [x, dx] = setgridcsome(xnum, 1);
 
-param = [parameters dx x]; 
-
-%param = [xnum xi gamma kappa beta_h epsilon_h beta_c epsilon_c beta_c2 dx x];
-% xi = param(2);
-% param2 = [xnum Rc Rb D k Jc Vmax Km Vba Kba Vca Kca kmH kmC Hout Cout alpha dx x];
+pdu_params.x=x; %define numerical integration settings in pdu_params
+pdu_params.dx=dx;
+pdu_params.xnum=xnum;
 
 %==========================================================================
 % call to set an initial condition only in the carboxysome
@@ -56,7 +48,7 @@ u0 = initold(xnum, initv);
 options = odeset('RelTol',reltol, 'AbsTol', abstol);
 length(u0);
 
-[t, u]=ode15s(@spherediffssnondim, time, u0, options, param); 
+[t, u]=ode15s(@spherediffssnondim, time, u0, options, pdu_params); 
 
 [fintime, junk] = size(t);
 

@@ -1,0 +1,68 @@
+function dy = spherediffssnondim(t,y,param)
+% pass parameters in PduParams struct -CMJ
+% has both HCO3- and CO2 diffusing
+% the equations in x have been discretized using finite-difference method
+
+
+% non-dimensional parameters from param
+beta_h = param(5);
+epsilon_h = param(6);
+beta_c = param(7);
+epsilon_c = param(8);
+beta_c2 = param(9);
+Vmax = param(10);
+Km = param(11);
+Vba = param(12);
+Kca = param(13);
+
+%numerical integration parameters
+% call setgrid same function as in driver to get lattice
+dx = param.dx;
+x = param.x;
+xnum = param.xnum;
+
+Rc = 1;
+
+
+dp = zeros(xnum, 1);        %derivative of h
+da = zeros(xnum, 1);        %derivative of c
+
+% the vector y contains both species, where y(1) = p(1), y(2) = a(1),
+% y(3) = p(2), ect... we want to convert this to two vectors p = 1,2-PD, and
+% a = propanal
+p = y(1:2:xnum*2)';
+a = y(2:2:xnum*2)';
+
+% boundary condition at the center
+beta = param.xi/(dx^2); % grouping of parameters
+RPQ = a(1)/(1 + a(1)); %non-dimensional PduP/PduQ reaction
+RCDE = p(1)/(1+p(1)); % non-dimensional PduCDE reaction
+dp(1) = beta*((3*(x(1)+x(2))/2)^(4/3))*(p(2)-p(1)) - RCDE; % change in 1,2-PD
+da(1) = beta*((3*(x(1)+x(2))/2)^(4/3))*(a(2)-a(1)) + 1/param.kappa*param.gamma*RCDE-1/param.kappa*RPQ; % change in propanal
+
+% inside carboxysome
+
+for i = 2:xnum-1
+    xhp = (3*(x(i)+x(i+1))/2)^(4/3); % factor from finite difference scheme in spherical coordinates
+    xhm = (3*(x(i)+x(i-1))/2)^(4/3);
+    RPQ = a(1)/(1 + a(1)); %non-dimensional PduP/PduQ reaction
+    Rrub = Vmax*c(i)/(Vba*(Km/Kca+c(i)));
+    dp(i) = beta*(xhp*(h(i+1)-h(i))-xhm*(h(i)-h(i-1)))- Rca;
+    da(i) = beta*(xhp*(c(i+1)-c(i))-xhm*(c(i)-c(i-1)))+ kappa*Rca- kappa*Rrub;
+end
+
+%at carboxysome boundary
+
+i = xnum;
+D = 1e-5;
+    
+xhp = (3*(x(i)+x(i)+0.5*dx)/2)^(2/3); % 
+xhm = (3*(x(i)+x(i-1))/2)^(4/3);
+dp(i) = beta*(xhp*(beta_h*h(i)-epsilon_h+beta_c2*c(i))*dx - xhm*(h(i)-h(i-1)));
+da(i) = beta*(xhp*(beta_c*c(i)-epsilon_c)*dx - xhm*(c(i)-c(i-1)));
+    
+
+% now we need to convert the derivative vectors dh and dc into one vector
+dy = zeros(xnum*2,1);
+dy(1:2:xnum*2)= dp;
+dy(2:2:xnum*2)= da;
