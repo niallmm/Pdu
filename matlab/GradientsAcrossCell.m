@@ -1,11 +1,10 @@
 % Check Gradients across cell
 
 % add paths
-add_paths
 
 % define parameters
 p = PduParams_MCP;
-p.jc = 0.5;
+p.jc = 5;
 p.kcA = 1e-4;
 p.kcP = p.kcP;
 p.alpha =0;
