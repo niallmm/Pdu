@@ -13,11 +13,15 @@ classdef NumericalPduModelSolution
         a_nondim;       % nondimensional concentration of propanal over time and space.
         p_mM;           % mM concentration of 1,2-PD over time and space.
         a_mM;           % mM concentration of propanal over time and space.
-        
+        a_MCP_uM;     % uM concentration of total bicarbonate in carboxysome.
+        p_MCP_uM;     % uM concentration of CO2 in carboxysome.
+        a_MCP_mM;     % mM concentration of total bicarbonate in carboxysome.
+        p_MCP_mM;     % mM concentration of CO2 in carboxysome.
+
         fintime;        % final time of the numerical solution -- needs to be long enough to get to steady state
         t;              % vector of time values the numerical solver solved at -- this is only meaningful to check that we reached steady state
         r;              % radial points for concentration values inside MCP
-
+        
     end
     
     methods
@@ -30,7 +34,10 @@ classdef NumericalPduModelSolution
             obj.fintime = fintime;
             obj.p_mM = obj.DimensionalizePTomM(p_nondim);
             obj.a_mM = obj.DimensionalizeATomM(a_nondim);
-            
+            obj.a_MCP_mM=obj.a_mM(end,1);
+            obj.p_MCP_mM=obj.p_mM(end,1);
+            obj.a_MCP_uM = obj.a_mM*1e3;
+            obj.p_MCP_uM = obj.p_mM*1e3;
         end
         
         % Converts C to mM from non-dimensional units

@@ -15,18 +15,14 @@ classdef PduModelExecutor
         % Note: numerical code is generic to the various cases we consider
         % (e.g. no MCP, etc) so this method can be
         % implemented generically.
-        function results = RunNumerical(obj, xnum)
+        function results = RunNumerical(obj)
             p = obj.pdu_params;  % shorthand
-            initv = zeros(2, xnum); % initialize vectors for CO2 and HCO3- concentrations
-            [r, h, c, fintime, t] = driverssnondim(xnum, p, initv);
+            initv = zeros(2, p.xnum); % initialize vectors for CO2 and HCO3- concentrations
+            [r, h, c, fintime, t] = driverssnondim(p.xnum, p, initv);
             results = NumericalPduModelSolution(p, r, h, c, fintime, t);
         end
     end
     
-    methods (Abstract)
-        % Run the analytical model
-        RunAnalytical(obj)
-    end
     
     
 end

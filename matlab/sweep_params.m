@@ -7,10 +7,9 @@ add_paths
 saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
 
 % define baseline parameters
-p = CCMParams_Csome;
-p.jc = 1e-4;
-p.kcC = 1e-4;
-p.kcH = p.kcC;
+p = PduParams_MCP;
+p.kcA = 1e-4;
+p.kcP = p.kcA;
 p.alpha =0;
 
 % =========================================================================
@@ -19,7 +18,7 @@ p.alpha =0;
 
 % Define parameter sweeps in cell array
 numberofsims= 3;
-sweep = {'jc',logspace(-4,-2, numberofsims)};
+sweep = {'jc',logspace(-2,4, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (CCMParams)
 
@@ -37,18 +36,18 @@ for ii = 1:length(sweep{1,2})
         save([saveLocation 'p.mat'], 'p');
         
     % run the simulation
-    exec = CCMModelExecutor(p);
+    exec = PduModelExecutor(p);
     res = exec.RunNumerical();
 
     % save results
     save([saveLocation 'res.mat'], 'res');
     % plot results
-    loglog(sweep{1,2}(ii), res.c_csome_mM, 'or')
+    loglog(sweep{1,2}(ii), res.p_MCP_mM, 'or')
     hold on
-    plot(sweep{1,2}(ii), res.h_csome_mM, 'ob')
+    plot(sweep{1,2}(ii), res.a_MCP_mM, 'ob')
 end
 
 xlabel(['parameter: ' sweep{1,1}])
-ylabel('CO_2 and HCO_3^- concentration in carboxysome [mM]')
+ylabel('A and P concentration in compartment [mM]')
     
     
