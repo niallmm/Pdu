@@ -5,7 +5,8 @@ add_paths
 changeplot
 
 % define a path for saving your results
-saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
+%saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
+saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
 
 % define baseline parameters
 p = PduParams_MCP;
