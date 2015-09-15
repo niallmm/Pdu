@@ -27,11 +27,6 @@ classdef PduParams< matlab.mixin.SetGet
         NPQ = 500;              % number of PduP/PduQ active sites
         KPQ = 15*1e3;           % uM half max reaction rate for PduP/PduQ
         
-        
-        x=1;                %numerical integration grid
-        dx=1;               %numerical integration grid spacing
-        xnum=1;             %number of grid points
-        
     end
     
     % Values that cannot be edited by client code since they are physical

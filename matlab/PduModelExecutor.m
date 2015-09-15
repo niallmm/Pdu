@@ -10,18 +10,22 @@ classdef PduModelExecutor
             obj.pdu_params = pdu_params;
         end
         
-        % Runs a numerical simulation of the CCM system to find the
+        % Runs a numerical simulation of the Pdu system to find the
         % steady state behavior. Stores results in this class.
         % Note: numerical code is generic to the various cases we consider
-        % (e.g. no carboxysome, no ccm, etc) so this method can be
+        % (e.g. no MCP, etc) so this method can be
         % implemented generically.
-        function results = RunNumerical(obj)
-            xnum = 100; % number of points in discritization
+        function results = RunNumerical(obj, xnum)
             p = obj.pdu_params;  % shorthand
             initv = zeros(2, xnum); % initialize vectors for CO2 and HCO3- concentrations
             [r, h, c, fintime, t] = driverssnondim(xnum, p, initv);
             results = NumericalPduModelSolution(p, r, h, c, fintime, t);
         end
+    end
+    
+    methods (Abstract)
+        % Run the analytical model
+        RunAnalytical(obj)
     end
     
     
