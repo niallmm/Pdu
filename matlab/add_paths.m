@@ -6,6 +6,8 @@
 % addpath('/Users/niallmangan/GitHub/ccm/matlab/')
 % % numerical code path
 % addpath('/Users/niallmangan/GitHub/ccm/matlab/numericalcode/')
+% % analytical code path
+% addpath('/Users/niallmangan/GitHub/ccm/matlab/analyticcode/')
 % % path with plotting functions in them
 % addpath('/Users/niallmangan/GitHub/ccm/matlab/PlottingFigures/')
 % % pH dependent data -- used to calculate pH dependent reaction rates
@@ -16,3 +18,5 @@
 addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab')
 % numerical code path
 addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\numericalcode')
+% analytical code path
+addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\analyticcode')
