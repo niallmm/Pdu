@@ -27,6 +27,10 @@ classdef PduParams< matlab.mixin.SetGet
         NPQ = 500;              % number of PduP/PduQ active sites
         KPQ = 15*1e3;           % uM half max reaction rate for PduP/PduQ
         
+        x;
+        dx;
+        xnum=100;
+        
     end
     
     % Values that cannot be edited by client code since they are physical

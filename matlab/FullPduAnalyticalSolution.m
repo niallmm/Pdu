@@ -36,16 +36,16 @@ classdef FullPduAnalyticalSolution
             obj.C3=(p.kmP*obj.p_MCP_uM-p.Pout*(p.jc+p.kmP))/(p.D/p.Rb^2+p.kmP*p.Xp);
             
             % concentration in the cytosol at r = Rb
-            obj.a_cyto_uM = p.B3*(1./p.Rb-p.D/(p.kcA*p.Rc^2)-1/p.Rc) +obj.a_MCP_uM;
+            obj.a_cyto_uM = obj.B3*(1./p.Rb-p.D/(p.kcA*p.Rc^2)-1/p.Rc) +obj.a_MCP_uM;
             
-            obj.p_cyto_uM = p.C3*(1./p.Rb-p.D/(p.kcP*p.Rc^2)-1/p.Rc) +obj.p_MCP_uM;
+            obj.p_cyto_uM = obj.C3*(1./p.Rb-p.D/(p.kcP*p.Rc^2)-1/p.Rc) +obj.p_MCP_uM;
            
            % concentration across the cell
            obj.r = linspace(p.Rc, p.Rb, 100);
            
-           obj.a_cyto_rad_uM = p.B3*(1./obj.r-p.D/(p.kcA*p.Rc^2)-1/p.Rc) +obj.a_MCP_uM;
+           obj.a_cyto_rad_uM = obj.B3*(1./obj.r-p.D/(p.kcA*p.Rc^2)-1/p.Rc) +obj.a_MCP_uM;
             
-           obj.p_cyto_rad_uM = p.C3*(1./obj.r-p.D/(p.kcP*p.Rc^2)-1/p.Rc) +obj.p_MCP_uM;
+           obj.p_cyto_rad_uM = obj.C3*(1./obj.r-p.D/(p.kcP*p.Rc^2)-1/p.Rc) +obj.p_MCP_uM;
 
             
            % unit conversion to mM

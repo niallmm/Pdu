@@ -19,9 +19,9 @@ AMCP = res.a_MCP_mM;
 PMCP = res.p_MCP_mM;
 
 % get the concentration across the cell (as a function of the radius)
-rb = linspace(p.Rc, p.Rb, 100);
-Acyto = res.a_cyto_rad_uM/10^3;
-Pcyto = res.p_cyto_rad_uM/10^3;
+rb = p.Rb;
+Acyto = res.a_cyto_mM;
+Pcyto = res.p_cyto_mM;
 
 %plot
 figure(5)
@@ -30,6 +30,7 @@ hold on
 plot(rb, Pcyto, 'b')
 line([0 p.Rc],[AMCP AMCP], 'Color','r')
 line([0 p.Rc], [PMCP PMCP], 'Color', 'b')
+line([p.Rc p.Rb],[AMCP AMCP], 'Color','r')
 xlabel('Cell radius (cm)')
 ylabel('Concentration (mM)')
 %line([p.Rc p.Rc], [1e-6 1e6], 'Color', [0.5 0.5 0.5], 'LineStyle', '-.', 'LineWidth', 3)
