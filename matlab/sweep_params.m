@@ -2,6 +2,7 @@
 
 % add paths
 add_paths
+changeplot
 
 % define a path for saving your results
 saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
