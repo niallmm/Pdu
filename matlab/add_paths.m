@@ -3,15 +3,15 @@
 % folders, without being in those folders.
 
 % % main path folder for code
-% addpath('/Users/niallmangan/GitHub/ccm/matlab/')
+% addpath('/Users/niallmangan/GitHub/Pdu/matlab/')
 % % numerical code path
-% addpath('/Users/niallmangan/GitHub/ccm/matlab/numericalcode/')
+% addpath('/Users/niallmangan/GitHub/Pdu/matlab/numericalcode/')
 % % analytical code path
-% addpath('/Users/niallmangan/GitHub/ccm/matlab/analyticcode/')
+% addpath('/Users/niallmangan/GitHub/Pdu/matlab/analyticcode/')
 % % path with plotting functions in them
-% addpath('/Users/niallmangan/GitHub/ccm/matlab/PlottingFigures/')
+% addpath('/Users/niallmangan/GitHub/Pdu/matlab/PlottingFigures/')
 % % pH dependent data -- used to calculate pH dependent reaction rates
-% addpath('/Users/niallmangan/GitHub/ccm/matlab/data/')
+% addpath('/Users/niallmangan/GitHub/Pdu/matlab/data/')
 
 %CMJ windows machine
 % main path folder for code
