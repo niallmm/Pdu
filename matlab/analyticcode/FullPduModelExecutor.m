@@ -13,6 +13,8 @@ classdef FullPduModelExecutor < PduModelExecutor
             aMCP=results.a_mM(end,1)*10^3;
             pMCP=results.p_mM(end,1)*10^3;
             result = FullPduAnalyticalSolution(p,aMCP,pMCP);
+            result.a_MCP_uM=results.a_MCP_uM;
+            result.p_MCP_uM=results.p_MCP_uM;
         end
     end
     

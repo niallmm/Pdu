@@ -5,9 +5,9 @@ classdef PduParams< matlab.mixin.SetGet
     % Mutable properties that may depend on the model context.
     %now includes parameters for numerical integration -CMJ
     properties
-        jc = 1;        % active uptake rate of 1,2-PD(cm/s)
-        kcA = 1e-4;      % permeability of MCP to propanal (cm/s)
-        kcP = 1e-4;      % permeability of MCP to 1,2-PD (cm/s)
+        jc = 0;        % active uptake rate of 1,2-PD(cm/s)
+        kcA = 1e-2;      % permeability of MCP to propanal (cm/s)
+        kcP = 1e-2;      % permeability of MCP to 1,2-PD (cm/s)
         Rb = 5e-5;       % radius of cell (cm)
         Rc = 5e-6;       % radius of MCP (cm)
         D = 1e-5;        % diffusion constant (cm^2/s)

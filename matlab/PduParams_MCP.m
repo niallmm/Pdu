@@ -42,7 +42,7 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         end
         
         function value = get.xi(obj)
-            value = obj.D * obj.KPQ / (obj.VCDEMCP * obj.Rc^2);
+            value = obj.D / (obj.VCDEMCP * obj.Rc^2);
         end
         function value = get.gamma(obj)
             value = 2*obj.VPQMCP / obj.VCDEMCP;

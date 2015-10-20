@@ -11,7 +11,7 @@ saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\mat
 % define baseline parameters
 p = PduParams_MCP;
 %p.kcA = 1e-3;
-p.kcP = p.kcA;
+%p.kcP = p.kcA;
 p.alpha =0;
 
 % =========================================================================
@@ -20,7 +20,7 @@ p.alpha =0;
 
 % Define parameter sweeps in cell array
 numberofsims= 5;
-sweep = {'Pout',logspace(-2,2, numberofsims)};
+sweep = {'NCDE',logspace(-2,2, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (PduParams)
 
