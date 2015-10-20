@@ -10,7 +10,7 @@ saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\mat
 
 % define baseline parameters
 p = PduParams_MCP;
-p.kcA = 1e-4;
+%p.kcA = 1e-3;
 p.kcP = p.kcA;
 p.alpha =0;
 
@@ -19,15 +19,16 @@ p.alpha =0;
 % =========================================================================
 
 % Define parameter sweeps in cell array
-numberofsims= 3;
-sweep = {'jc',logspace(-2,4, numberofsims)};
+numberofsims= 5;
+sweep = {'Pout',logspace(-2,2, numberofsims)};
 % first entry is the name of the parameter as defined in the class
-% (CCMParams)
+% (PduParams)
 
 a = figure;
 for ii = 1:length(sweep{1,2})
-    
-    set(p, sweep{1,1},sweep{1,2}(ii));
+    startValue=get(PduParams_MCP,sweep{1,1});
+    set(p, sweep{1,1},sweep{1,2}(ii)*startValue);
+    p.kcP = p.kcA; %keep kcX the same
 
      % save location for this particular parameter combination run
         
@@ -38,18 +39,30 @@ for ii = 1:length(sweep{1,2})
         save([saveLocation 'p.mat'], 'p');
         
     % run the simulation
-    exec = PduModelExecutor(p);
-    res = exec.RunNumerical();
+    exec = FullPduModelExecutor(p);
+    res = exec.RunAnalytical();
 
     % save results
     save([saveLocation 'res.mat'], 'res');
+    
+    Acyto = res.a_cyto_rad_uM/10^3;
+    Pcyto = res.p_cyto_rad_uM/10^3;
+    
     % plot results
-    loglog(sweep{1,2}(ii), res.p_MCP_mM, 'or')
+    %concs in MCP and cytosol
+    loglog(sweep{1,2}(ii), res.p_MCP_mM, 'ob')
     hold on
-    plot(sweep{1,2}(ii), res.a_MCP_mM, 'ob')
+    plot(sweep{1,2}(ii), res.a_MCP_mM, 'or')
+    plot(sweep{1,2}(ii), mean(Pcyto), 'xb')
+    plot(sweep{1,2}(ii), mean(Acyto), 'xr')
+
+    
 end
 
 xlabel(['parameter: ' sweep{1,1}])
-ylabel('A and P concentration in compartment [mM]')
+ylabel('A and P concentration in compartment and cytosol [mM]')
+line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color', 'b') %saturation halfmax conc of 1,2-PD for PduCDE
+line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color','r') %saturation halfmax conc of propanal for PduPQ
+
     
     

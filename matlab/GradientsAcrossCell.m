@@ -4,9 +4,9 @@
 
 % define parameters
 p = PduParams_MCP;
-p.jc = 5;
+p.jc = 1;
 p.kcA = 1e-4;
-p.kcP = p.kcP;
+p.kcP = p.kcA;
 p.alpha =0;
 
 % run the simulation
@@ -24,7 +24,7 @@ Acyto = res.a_cyto_rad_uM/10^3;
 Pcyto = res.p_cyto_rad_uM/10^3;
 
 %plot
-figure(5)
+figure
 semilogy(rb, Acyto, 'r')
 hold on
 plot(rb, Pcyto, 'b')
