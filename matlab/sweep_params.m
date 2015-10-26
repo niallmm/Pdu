@@ -1,3 +1,4 @@
+function [] = sweep_params(paramToSweep)
 % run a sweep in some parameter for the numerical solution
 
 % add paths
@@ -6,7 +7,8 @@ changeplot
 
 % define a path for saving your results
 %saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
-saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
+%saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
+saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
 
 % define baseline parameters
 p = PduParams_MCP;
@@ -20,11 +22,11 @@ p.alpha =0;
 
 % Define parameter sweeps in cell array
 numberofsims= 5;
-sweep = {'NCDE',logspace(-2,2, numberofsims)};
+sweep = {paramToSweep,logspace(-2,2, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (PduParams)
 
-a = figure;
+figure
 for ii = 1:length(sweep{1,2})
     startValue=get(PduParams_MCP,sweep{1,1});
     set(p, sweep{1,1},sweep{1,2}(ii)*startValue);
