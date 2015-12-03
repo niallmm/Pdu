@@ -14,18 +14,18 @@
 % addpath('/Users/niallmangan/GitHub/Pdu/matlab/data/')
 
 %CMJ windows machine
-% % main path folder for code
-% addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab')
-% % numerical code path
-% addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\numericalcode')
-% % analytical code path
-% addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\analyticcode')
-
-%CMJ macbook
 % main path folder for code
-addpath('/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab')
+addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab')
 % numerical code path
-addpath('/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/numericalcode')
+addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\numericalcode')
 % analytical code path
-addpath('/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/analyticcode')
+addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\analyticcode')
+
+% %CMJ macbook
+% % main path folder for code
+% addpath('/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab')
+% % numerical code path
+% addpath('/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/numericalcode')
+% % analytical code path
+% addpath('/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/analyticcode')
 
