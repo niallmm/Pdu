@@ -7,8 +7,8 @@ changeplot
 
 % define a path for saving your results
 %saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
-%saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
-saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
+saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
+%saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
 
 % define baseline parameters
 p = PduParams_MCP;
@@ -21,7 +21,7 @@ p.alpha =0;
 % =========================================================================
 
 % Define parameter sweeps in cell array
-numberofsims= 5;
+numberofsims= 3;
 sweep = {paramToSweep,logspace(-2,2, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (PduParams)
@@ -57,6 +57,8 @@ for ii = 1:length(sweep{1,2})
     plot(sweep{1,2}(ii), res.a_MCP_mM, 'or')
     plot(sweep{1,2}(ii), mean(Pcyto), 'xb')
     plot(sweep{1,2}(ii), mean(Acyto), 'xr')
+    plot(sweep{1,2}(ii), res.p_MCP_const_mM, '+b')
+    plot(sweep{1,2}(ii), res.a_MCP_const_mM, '+r')
 
     
 end
