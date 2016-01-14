@@ -57,8 +57,11 @@ for ii = 1:length(sweep{1,2})
     plot(sweep{1,2}(ii), res.a_MCP_mM, 'or')
     plot(sweep{1,2}(ii), mean(Pcyto), 'xb')
     plot(sweep{1,2}(ii), mean(Acyto), 'xr')
+    %analytical solution assuming constant conc in MCP
     plot(sweep{1,2}(ii), res.p_MCP_const_mM, '+b')
     plot(sweep{1,2}(ii), res.a_MCP_const_mM, '+r')
+    
+    legend('numerical PMCP','numerical AMCP','numerical Pcyto','numerical Acyto','analytical PMCP','analytical AMCP','Location','southeast')
 
     
 end

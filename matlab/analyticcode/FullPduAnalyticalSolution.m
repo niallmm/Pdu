@@ -29,6 +29,10 @@ classdef FullPduAnalyticalSolution
         W;
         Y;
         Z;
+        E;
+        F;
+        G;
+        S;
         a_nondim;
         p_nondim;
         
@@ -68,20 +72,31 @@ classdef FullPduAnalyticalSolution
            obj.p_MCP_mM = pMCP * 1e-3;
            
            %Find a_MCP and p_MCP based on assumption of constant a_MCP and p_MCP
-           obj.Y=(3*p.D*p.KCDE)/(p.VCDEMCP*p.Rc^3*(p.D/(p.kmP*p.Rb^2)+p.Xp));
+           obj.Y=(p.VCDEMCP*p.Rc^3*(p.D/(p.kmP*p.Rb^2)+p.Xp))/(3*p.D*p.KCDE);
            obj.Z=(p.Pout*(1+p.jc/p.kmP))/p.KCDE;
            
-           obj.p_nondim=(sqrt(obj.Y^2*(obj.Z+1)^2-2*obj.Y*(obj.Z-1)+1)...
-               +obj.Y*(obj.Z-1)-1)/(2*obj.Y);
+           obj.E=obj.Z-obj.Y+1;
            
+           %full analytical solution assuming const conc in MCP
+           %obj.p_nondim=max((-obj.E+sqrt(obj.E^2-4*obj.Z))/2,(-obj.E-sqrt(obj.E^2-4*obj.Z))/2);
            
-           obj.U=(3*p.D*p.KPQ)/(p.VCDEMCP*p.Rc^3*(p.D/(p.kmA*p.Rb^2)+p.Xp));
+           %analytical solution assuming unsat enzymes and const conc in MCP
+           obj.p_nondim=obj.Z/(obj.Y+1);
+           
+           obj.U=(p.VPQMCP*p.Rc^3*(p.D/(p.kmA*p.Rb^2)+p.Xp))/(3*p.D*p.KPQ);
            obj.V=p.Aout/p.KPQ;
            obj.W=1/2*p.VCDEMCP/p.VPQMCP*obj.p_nondim/(1+obj.p_nondim);
            
-           obj.a_nondim=(obj.U*(obj.V-1)+obj.W-1 ...
-                +sqrt(obj.U^2*(obj.V+1)^2+2*obj.U* ...
-                (obj.V*(obj.W-1)+obj.W+1)+(obj.Z-1)^2))/(2*obj.U);
+           obj.S=1/2*p.VCDEMCP/p.VPQMCP*obj.p_nondim;
+           
+           obj.F=1+obj.U-obj.V-obj.U*obj.W;
+           obj.G=-(obj.U*obj.W+obj.V);
+           
+           %full analytical solution assuming const conc in MCP
+           %obj.a_nondim=max((-obj.F+sqrt(obj.F^2-4*obj.G))/2,(-obj.F-sqrt(obj.F^2-4*obj.G))/2);
+           
+           %analytical solution assuming unsat enzymes and const conc in MCP
+           obj.a_nondim=(obj.V+obj.U*obj.S)/(obj.U+1);
            
            obj.a_MCP_const_uM=obj.a_nondim*p.KPQ;
            obj.p_MCP_const_uM=obj.p_nondim*p.KCDE;
