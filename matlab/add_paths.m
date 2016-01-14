@@ -3,11 +3,12 @@
 % folders, without being in those folders.
 
 % % main path folder for code
-% addpath('/Users/niallmangan/GitHub/Pdu/matlab/')
-% % numerical code path
-% addpath('/Users/niallmangan/GitHub/Pdu/matlab/numericalcode/')
-% % analytical code path
-% addpath('/Users/niallmangan/GitHub/Pdu/matlab/analyticcode/')
+addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/')
+% numerical code path
+addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/numericalcode/')
+% analytical code path
+addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/analyticcode/')
+% % path with plotting functions in them
 % % path with plotting functions in them
 % addpath('/Users/niallmangan/GitHub/Pdu/matlab/PlottingFigures/')
 % % pH dependent data -- used to calculate pH dependent reaction rates
