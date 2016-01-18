@@ -28,10 +28,10 @@ classdef ConstantMCPAnalyticalSolution
             
             p=pdu_params;
             
-            obj.p_full_uM=abs((-p.E-sqrt(p.E^2-4*p.Z))/2*p.KCDE);
-            obj.a_full_uM=abs((-(p.F-p.U*p.W*obj.p_full_uM/(1+obj.p_full_uM))+...
-                sqrt((p.F-p.U*p.W*obj.p_full_uM/(1+obj.p_full_uM))^2-...
-                4*(p.U*p.W*obj.p_full_uM/(1+obj.p_full_uM)-p.V)))/2*p.KPQ);
+            obj.p_full_uM=(-p.E+sqrt(p.E^2+4*p.Z))/2*p.KCDE;
+            obj.a_full_uM=(-(p.F-p.U*p.W*obj.p_full_uM/(1+obj.p_full_uM))+...
+                sqrt((p.F-p.U*p.W*obj.p_full_uM/(1+obj.p_full_uM))^2+...
+                4*(p.U*p.W*obj.p_full_uM/(1+obj.p_full_uM)+p.V)))/2*p.KPQ;
             
             obj.p_satsat_uM=(p.Z-p.Y)*p.KCDE;
             obj.p_unsatunsat_uM=p.Z/(p.Y+1)*p.KCDE;

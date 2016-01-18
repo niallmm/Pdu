@@ -103,7 +103,7 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         end
         
         function value = get.E(obj)
-            value =obj.Z-obj.Y+1;
+            value =obj.Y-obj.Z+1;
         end
         
         function value = get.F(obj)
