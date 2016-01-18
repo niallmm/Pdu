@@ -17,6 +17,16 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         Xa  % grouped params = D/(Rc^2 kcA) + 1/Rc - 1/Rb [1/cm]
         Xp  % grouped params = D/(Rc^2 kcP) + 1/Rc - 1/Rb [1/cm]
         
+        %Non-dim params for analytical solution assuming constant conc in
+        %MCP
+        U;
+        V;
+        W;
+        Y;
+        Z;
+        E;
+        F;
+        
         % Calculated appropriate to the volume in which the enzymes are
         % contained which depends on the situation (in cbsome or not).
         VCDE    % uM/s PduCDE max reaction rate/concentration
@@ -71,6 +81,35 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         function value = get.beta_p(obj)
             value = -obj.kmP/(obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
         end
+        
+        function value = get.U(obj)
+            value =(obj.VPQMCP*obj.Rc^3*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xp))/(3*obj.D*obj.KPQ);
+        end
+        
+        function value = get.V(obj)
+            value =obj.Aout/obj.KPQ;
+        end
+        
+        function value = get.W(obj)
+            value =1/2*obj.VCDEMCP/obj.VPQMCP;
+        end
+        
+        function value = get.Y(obj)
+            value =(obj.VCDEMCP*obj.Rc^3*(obj.D/(obj.kmP*obj.Rb^2)+obj.Xp))/(3*obj.D*obj.KCDE);
+        end
+        
+        function value = get.Z(obj)
+            value =(obj.Pout*(1+obj.jc/obj.kmP))/obj.KCDE;
+        end
+        
+        function value = get.E(obj)
+            value =obj.Z-obj.Y+1;
+        end
+        
+        function value = get.F(obj)
+            value =1+obj.U-obj.V;
+        end
+               
         
     end
 end
