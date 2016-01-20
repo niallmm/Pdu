@@ -6,8 +6,8 @@ add_paths
 changeplot
 
 % define a path for saving your results
-saveLocationRoot = '/Users/niallmm/Dropbox/GitHub/Pdu/matlab/testing/';
-% saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
+%saveLocationRoot = '/Users/niallmm/Dropbox/GitHub/Pdu/matlab/testing/';
+saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
 %saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
 
 % define baseline parameters
@@ -21,8 +21,8 @@ p.alpha =0;
 % =========================================================================
 
 % Define parameter sweeps in cell array
-numberofsims= 5;
-sweep = {paramToSweep,logspace(-4,4, numberofsims)};
+numberofsims= 25;
+sweep = {paramToSweep,logspace(-8,6, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (PduParams)
 
@@ -43,25 +43,28 @@ for ii = 1:length(sweep{1,2})
     % run the simulation
     exec = FullPduModelExecutor(p);
     res = exec.RunAnalytical();
+    analytical = ConstantMCPAnalyticalSolution(p);
 
     % save results
     save([saveLocation 'res.mat'], 'res');
     
-    Acyto = res.a_cyto_rad_uM/10^3;
-    Pcyto = res.p_cyto_rad_uM/10^3;
+%     Acyto = res.a_cyto_rad_uM/10^3;
+%     Pcyto = res.p_cyto_rad_uM/10^3;
     
     % plot results
     %concs in MCP and cytosol
-    loglog(sweep{1,2}(ii), res.p_MCP_mM, 'ob')
+    loglog(sweep{1,2}(ii), res.p_MCP_uM(end,p.xnum)/1000, 'ob') %edge of MCP
     hold on
-    plot(sweep{1,2}(ii), res.a_MCP_mM, 'or')
-    plot(sweep{1,2}(ii), mean(Pcyto), 'xb')
-    plot(sweep{1,2}(ii), mean(Acyto), 'xr')
+    plot(sweep{1,2}(ii), res.a_MCP_uM(end,p.xnum)/1000, 'or')
+    plot(sweep{1,2}(ii), res.p_MCP_uM(end,1)/1000, 'vb') %center of MCP
+    plot(sweep{1,2}(ii), res.a_MCP_uM(end,1)/1000, 'vr')
+%     plot(sweep{1,2}(ii), mean(Pcyto), 'xb')
+%     plot(sweep{1,2}(ii), mean(Acyto), 'xr')
     %analytical solution assuming constant conc in MCP
-    plot(sweep{1,2}(ii), res.p_MCP_const_mM, '+b')
-    plot(sweep{1,2}(ii), res.a_MCP_const_mM, '+r')
+    plot(sweep{1,2}(ii), analytical.p_full_uM/1000, '+b')
+    plot(sweep{1,2}(ii), analytical.a_full_uM/1000, '+r')
     
-    legend('numerical PMCP','numerical AMCP','numerical Pcyto','numerical Acyto','analytical PMCP','analytical AMCP','Location','southeast')
+    legend('numerical PMCP edge','numerical AMCP edge','numerical PMCP center','numerical AMCP center','analytical PMCP','analytical AMCP','Location','southeast')
 
     
 end
