@@ -22,7 +22,7 @@ p.alpha =0;
 
 % Define parameter sweeps in cell array
 numberofsims= 25;
-sweep = {paramToSweep,logspace(-8,6, numberofsims)};
+sweep = {paramToSweep,logspace(-8,8, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (PduParams)
 
