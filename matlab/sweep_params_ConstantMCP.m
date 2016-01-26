@@ -22,7 +22,9 @@ p.alpha =0;
 
 % Define parameter sweeps in cell array
 numberofsims= 50;
-sweep = {paramToSweep,logspace(-10,6, numberofsims)};
+
+sweep = {paramToSweep,logspace(-8,6, numberofsims)};
+
 % first entry is the name of the parameter as defined in the class
 % (PduParams)
 
@@ -48,9 +50,9 @@ for ii = 1:length(sweep{1,2})
     
     % plot results
     %concs in MCP
-    loglog(sweep{1,2}(ii), res.p_full_uM/1000, '-og')
+    loglog(sweep{1,2}(ii), res.p_full_uM/1000, 'og')
     hold on
-    plot(sweep{1,2}(ii), res.a_full_uM/1000, '-om')
+    plot(sweep{1,2}(ii), res.a_full_uM/1000, 'om')
     plot(sweep{1,2}(ii), res.p_satsat_uM/1000, 'xb')
     plot(sweep{1,2}(ii), res.a_satsat_uM/1000, 'xr')
     plot(sweep{1,2}(ii), res.p_unsatunsat_uM/1000, '+b')

@@ -5,11 +5,11 @@ classdef PduParams< matlab.mixin.SetGet
     % Mutable properties that may depend on the model context.
     %now includes parameters for numerical integration -CMJ
     properties
-        jc = 1;        % active uptake rate of 1,2-PD(cm/s)
+        jc = 0;        % active uptake rate of 1,2-PD(cm/s)
         kcA = 1e-2;      % permeability of MCP to propanal (cm/s)
         kcP = 1e-2;      % permeability of MCP to 1,2-PD (cm/s)
         Rb = 5e-5;       % radius of cell (cm)
-        Rc = 5e-6;       % radius of MCP (cm)
+        Rc = 1e-5;       % radius of MCP (cm) %made larger to match real volume ratio
         D = 1e-5;        % diffusion constant (cm^2/s)
 
         kmA = 0.3;       % cm/s permeability of outer membrane to propanal
@@ -20,10 +20,10 @@ classdef PduParams< matlab.mixin.SetGet
         Aout = 0;           % uM concentration of propanal outside
 
         kcatCDE = 300;          % rxns/s maximum reaction rate at single PduCDE active site
-        NCDE = 300;              % number of PduCDE active sites
+        NCDE = 15000;              % number of PduCDE active sites %updated based on MFS data
         KCDE= 0.5*1e3;        	% half max reaction rate of PduCDE, uM
         kcatPQ = 55;            % rxns/s maximum rate of aldehyde consumption by PduP/PduQ
-        NPQ = 500;              % number of PduP/PduQ active sites
+        NPQ = 2500;              % number of PduP/PduQ active sites %updated based on MFS data
         KPQ = 15*1e3;           % uM half max reaction rate for PduP/PduQ
         
         x;

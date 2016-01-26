@@ -34,9 +34,9 @@ classdef NumericalPduModelSolution
             obj.fintime = fintime;
             obj.p_mM = obj.DimensionalizePTomM(p_nondim);
             obj.a_mM = obj.DimensionalizeATomM(a_nondim);
-            obj.a_MCP_mM=obj.a_mM(end,1);
+            obj.a_MCP_mM=obj.a_mM(end,1); %MCP concs at r=0
             obj.p_MCP_mM=obj.p_mM(end,1);
-            obj.a_MCP_uM = obj.a_mM*1e3;
+            obj.a_MCP_uM = obj.a_mM*1e3; %MCP conc vectors as f(r)
             obj.p_MCP_uM = obj.p_mM*1e3;
         end
         

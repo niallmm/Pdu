@@ -2,12 +2,12 @@
 % adding the paths allows you to run different functions in all the
 % folders, without being in those folders.
 
-% % main path folder for code
-addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/')
-% numerical code path
-addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/numericalcode/')
-% analytical code path
-addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/analyticcode/')
+% % % main path folder for code
+% addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/')
+% % numerical code path
+% addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/numericalcode/')
+% % analytical code path
+% addpath('/Users/niallmm/Dropbox/GitHub/Pdu/matlab/analyticcode/')
 % % path with plotting functions in them
 % % path with plotting functions in them
 % addpath('/Users/niallmangan/GitHub/Pdu/matlab/PlottingFigures/')

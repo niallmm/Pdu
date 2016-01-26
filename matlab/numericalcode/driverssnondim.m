@@ -1,4 +1,4 @@
-function [r1, h1, c1, fintime, t] = driverssnondim(xnum, pdu_params, initv)
+function [r1, p1, a1, fintime, t] = driverssnondim(xnum, pdu_params, initv)
 %==========================================================================
 % Non-linear Diffusion Equation Solver
 % uses matlab ode functions
@@ -56,6 +56,6 @@ length(u0);
 % Change variables back
 %==========================================================================
 
-[r1,h1,c1] = variablechangesep(x,u);
+[r1,p1,a1] = variablechangesep(x,u);
 
  toc;
