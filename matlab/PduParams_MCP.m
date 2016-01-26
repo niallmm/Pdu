@@ -75,15 +75,15 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
             value = obj.Aout/(obj.KPQ*obj.Rc*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa));
         end
         
-        function value = get.epsilon_p(obj)
-            value = obj.Pout*(obj.jc+obj.kmP)/(obj.KCDE*obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
-        end
         function value = get.beta_p(obj)
             value = -obj.kmP/(obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
         end
+        function value = get.epsilon_p(obj)
+            value = obj.Pout*(obj.jc+obj.kmP)/(obj.KCDE*obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
+        end
         
         function value = get.U(obj)
-            value =(obj.VPQMCP*obj.Rc^3*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xp))/(3*obj.D*obj.KPQ);
+            value =(2*obj.VPQMCP*obj.Rc^3*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa))/(3*obj.D*obj.KPQ);
         end
         
         function value = get.V(obj)
