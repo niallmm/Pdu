@@ -6,8 +6,8 @@ add_paths
 changeplot
 
 % define a path for saving your results
-%saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
-saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
+saveLocationRoot = '/Users/niallmm/Dropbox/GitHub/Pdu/matlab/CCMtesting/';
+% saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
 %saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
 
 % define baseline parameters
@@ -21,8 +21,8 @@ p.alpha =0;
 % =========================================================================
 
 % Define parameter sweeps in cell array
-numberofsims= 11;
-sweep = {paramToSweep,logspace(-6,6, numberofsims)};
+numberofsims= 50;
+sweep = {paramToSweep,logspace(-10,6, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (PduParams)
 
