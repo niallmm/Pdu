@@ -26,6 +26,11 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         Z;
         E;
         F;
+        Aprime;
+        Bprime;
+        Cprime;
+        Dprime;
+        Eprime;
         
         % Calculated appropriate to the volume in which the enzymes are
         % contained which depends on the situation (in cbsome or not).
@@ -109,7 +114,27 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         function value = get.F(obj)
             value =1+obj.U-obj.V;
         end
-               
+           
+        function value = get.Aprime(obj)
+            value = (obj.VCDEMCP*obj.Rc)/(3*obj.KCDE*obj.kcP);
+        end    
+           
+        function value = get.Bprime(obj)
+            value = obj.Pout/obj.KCDE;
+        end 
+           
+        function value = get.Cprime(obj)
+            value = (2*obj.VPQMCP*obj.Rc)/(3*obj.KPQ*obj.kcA);
+        end    
+        
+        function value = get.Dprime(obj)
+            value = obj.Aout/obj.KPQ;
+        end 
+        
+        function value = get.Eprime(obj)
+            value = obj.VCDEMCP/(2*obj.VPQMCP);
+        end 
+        
         
     end
 end

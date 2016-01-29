@@ -57,9 +57,11 @@ for ii = 1:length(sweep{1,2})
     plot(sweep{1,2}(ii), res.a_unsatunsat_uM/1000, '+r')
     plot(sweep{1,2}(ii), res.a_unsatsat_uM/1000, 'sr')
     plot(sweep{1,2}(ii), res.a_satunsat_uM/1000, 'vr')
+    plot(sweep{1,2}(ii), res.p_lokcA_uM/1000, '.b')
+    plot(sweep{1,2}(ii), res.a_lokcA_uM/1000, '.r')
     
     legend('full P','full A','sat P','satsatA','unsat P','unsatunsatA',...
-        'unsatsatA','satunsatA','Location','southeast')
+        'unsatsatA','satunsatA','low kcA P','low kcA A','Location','southeast')
 
     
 end
