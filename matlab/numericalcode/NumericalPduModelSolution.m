@@ -40,13 +40,13 @@ classdef NumericalPduModelSolution
             obj.p_MCP_uM = obj.p_mM*1e3;
         end
         
-        % Converts C to mM from non-dimensional units
+        % Converts A to mM from non-dimensional units
         function val = DimensionalizeATomM(obj, a_nondim)
             p = obj.pdu_params;  % shorthand
             val = a_nondim * p.KPQ * 1e-3;
         end
         
-        % Converts H to mM from non-dimensional units
+        % Converts P to mM from non-dimensional units
         function val = DimensionalizePTomM(obj, p_nondim)
             p = obj.pdu_params;  % shorthand
             val = p_nondim * p.KCDE * 1e-3;

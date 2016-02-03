@@ -16,7 +16,7 @@ tic;
 % Control parameters
 %==========================================================================
 
-finaltime = 100000000000;        % total simulation time
+finaltime = 10000000000;        % total simulation time
 time = linspace(0,finaltime,100);
 %time = [0 0.0001];
 abstol = 1e-12;          % error tolerance

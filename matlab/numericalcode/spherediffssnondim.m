@@ -13,12 +13,12 @@ dp = zeros(xnum, 1);        %derivative of p
 da = zeros(xnum, 1);        %derivative of a
 
 % the vector y contains both species, where y(1) = p(1), y(2) = a(1),
-% y(3) = p(2), ect... we want to convert this to two vectors p = 1,2-PD, and
+% y(3) = p(2), etc... we want to convert this to two vectors p = 1,2-PD, and
 % a = propanal
 p = y(1:2:xnum*2)';
 a = y(2:2:xnum*2)';
 
-% boundary condition at the center
+% boundary condition at the center (symmetry)
 beta = param.xi/(dx^2); % grouping of parameters
 RPQ = a(1)/(1 + a(1)); %non-dimensional PduP/PduQ reaction
 RCDE = p(1)/(1 + p(1)); % non-dimensional PduCDE reaction
@@ -42,11 +42,11 @@ i = xnum;
     
 xhp = (3*(x(i)+x(i)+0.5*dx)/2)^(2/3); % 
 xhm = (3*(x(i)+x(i-1))/2)^(4/3);
-dp(i) = 1/beta*(xhp*(param.beta_p*p(i)+param.epsilon_p)*dx - xhm*(p(i)-p(i-1)));
-da(i) = 1/beta*(xhp*(param.beta_a*a(i)+param.epsilon_a)*dx - xhm*(a(i)-a(i-1)));
+dp(i) = beta*(xhp*(param.beta_p*p(i)+param.epsilon_p)*dx - xhm*(p(i)-p(i-1)));
+da(i) = beta*(xhp*(param.beta_a*a(i)+param.epsilon_a)*dx - xhm*(a(i)-a(i-1)));
     
 
-% now we need to convert the derivative vectors dh and dc into one vector
+% now we need to convert the derivative vectors dp and da into one vector
 dy = zeros(xnum*2,1);
 dy(1:2:xnum*2)= dp;
 dy(2:2:xnum*2)= da;

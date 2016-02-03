@@ -75,16 +75,29 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
 
         function value = get.beta_a(obj)
             value = -1/(obj.Rc*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa));
+            
+            %simplified form when jc=0 and kcA=>0
+            %value = -obj.Rc*obj.kcA/obj.D;
         end
         function value = get.epsilon_a(obj)
             value = obj.Aout/(obj.KPQ*obj.Rc*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa));
+            
+            %simplified form when jc=0 and kcA=>0
+            %value = (obj.Aout*obj.Rc*obj.kcA)/(obj.D*obj.KPQ);
         end
         
         function value = get.beta_p(obj)
             value = -obj.kmP/(obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
+            
+            %simplified form when jc=0 and kcA=>0
+            %value = -obj.Rc*obj.kcP/obj.D;
         end
+        
         function value = get.epsilon_p(obj)
             value = obj.Pout*(obj.jc+obj.kmP)/(obj.KCDE*obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
+            
+            %simplified form when jc=0 and kcA=>0
+            %value = (obj.Pout*obj.Rc*obj.kcP)/(obj.D*obj.KCDE);
         end
         
         function value = get.U(obj)
@@ -108,7 +121,7 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         end
         
         function value = get.E(obj)
-            value =obj.Y-obj.Z+1;
+            value =1+obj.Y-obj.Z;
         end
         
         function value = get.F(obj)
