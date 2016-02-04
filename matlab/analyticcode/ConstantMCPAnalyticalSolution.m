@@ -6,7 +6,9 @@ classdef ConstantMCPAnalyticalSolution
         
         %concentrations based on assumption of constant a_MCP and p_MCP
         a_full_uM;      %full analytical solution
-        p_full_uM;      
+        p_full_uM;
+        a_cyto_uM;
+        p_cyto_uM;
         
         a_satsat_uM;        %both enzymes saturated
         a_unsatunsat_uM;    %both enzymes unsaturated
@@ -47,6 +49,12 @@ classdef ConstantMCPAnalyticalSolution
             
             obj.p_lokcA_uM=p.Bprime/(1+p.Aprime)*p.KCDE;
             obj.a_lokcA_uM=(p.Cprime*p.Eprime*(obj.p_lokcA_uM/p.KCDE))/(1+p.Cprime)*p.KPQ;
+            
+            %calculate cyto values based on full analytical solution
+            result = FullPduAnalyticalSolution(p,obj.a_full_uM,obj.p_full_uM);
+            obj.p_cyto_uM=mean(result.p_cyto_rad_uM);
+            obj.a_cyto_uM=mean(result.a_cyto_rad_uM);
+            
             
            
         end

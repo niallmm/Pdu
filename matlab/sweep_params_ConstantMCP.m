@@ -7,14 +7,14 @@ changeplot
 
 % define a path for saving your results
 %saveLocationRoot = '/Users/niallmm/Dropbox/GitHub/Pdu/matlab/CCMtesting/';
- saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
-%saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
+%saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
+saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
 
 % define baseline parameters
 p = PduParams_MCP;
 %p.kcA = 1e-3;
 %p.kcP = p.kcA;
-p.alpha =0;
+%p.alpha =0;
 
 % =========================================================================
 % define parameter you want to change
@@ -32,21 +32,21 @@ figure
 for ii = 1:length(sweep{1,2})
     startValue=get(PduParams_MCP,sweep{1,1});
     set(p, sweep{1,1},sweep{1,2}(ii)*startValue);
-    p.kcP = p.kcA; %keep kcX the same
+    %p.kcP = p.kcA; %keep kcX the same
 
      % save location for this particular parameter combination run
         
         savefolder1 = savefolder(); % creates a folder name with date and time to use as save location
         saveLocation = ([saveLocationRoot savefolder1 '/']);
-        mkdir(saveLocation)
+        %mkdir(saveLocation)
         
-        save([saveLocation 'p.mat'], 'p');
+        %save([saveLocation 'p.mat'], 'p');
         
     % run the simulation
     res = ConstantMCPAnalyticalSolution(p);
 
     % save results
-    save([saveLocation 'res.mat'], 'res');
+    %save([saveLocation 'res.mat'], 'res');
     
     % plot results
     %concs in MCP

@@ -30,7 +30,7 @@ figure
 for ii = 1:length(sweep{1,2})
     startValue=get(PduParams_MCP,sweep{1,1});
     set(p, sweep{1,1},sweep{1,2}(ii)*startValue);
-    p.kcP = p.kcA; %keep kcX the same
+    %p.kcP = p.kcA; %keep kcX the same
 
      % save location for this particular parameter combination run
         
