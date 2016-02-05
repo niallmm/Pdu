@@ -6,7 +6,7 @@ changeplot
 
 % define a path for saving your results
 %saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
-saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
+%saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
 %saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
 
 % define baseline parameters
@@ -23,8 +23,8 @@ p = PduParams_MCP;
 numberofsims= 50;
 
 
-sweep = {'kmA',logspace(-8,8, numberofsims)
-        'kmP', logspace(-8,8, numberofsims)};
+sweep = {'kcA',logspace(-8,8, numberofsims)
+        'kcP', logspace(-8,8, numberofsims)};
 % first entry is the name of the parameter as defined in the class
 % (CCMParams)
 
@@ -49,7 +49,7 @@ for ii = 1:length(sweep{1,2})
      % save location for this particular parameter combination run
         
         savefolder1 = savefolder(); % creates a folder name with date and time to use as save location
-        saveLocation = ([saveLocationRoot savefolder1 '/']);
+        %saveLocation = ([saveLocationRoot savefolder1 '/']);
         %mkdir(saveLocation)
         
         %save([saveLocation 'p.mat'], 'p');
