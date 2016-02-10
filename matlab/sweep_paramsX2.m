@@ -26,7 +26,7 @@ numberofsims= 50;
 sweep = {'kcA',logspace(-8,8, numberofsims)
         'kcP', logspace(-8,8, numberofsims)};
 % first entry is the name of the parameter as defined in the class
-% (CCMParams)
+% (Pdu  Params)
 
 a = figure;
 
@@ -95,6 +95,11 @@ ylabel(['parameter: ' sweep{1,1}])
 xlabel(['parameter: ' sweep{2,1}])
 zlabel('P concentration in cytosol [mM]')
 
+figure
+surf(log10(sweep{1,2}),log10(sweep{2,2}),log10(A-Acyto));
+ylabel(['parameter: ' sweep{1,1}])
+xlabel(['parameter: ' sweep{2,1}])
+zlabel('AMCP-ACyto [mM]')
 
 %line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color', 'b') %saturation halfmax conc of 1,2-PD for PduCDE
 %line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color','r') %saturation halfmax conc of propanal for PduPQ

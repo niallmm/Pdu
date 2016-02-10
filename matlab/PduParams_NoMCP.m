@@ -1,4 +1,4 @@
-classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
+classdef PduParams_NoMCP < PduParams &  matlab.mixin.SetGet
     % Object defining CCM parameters - encapsulates various dependent
     % calculations of rates and volumes. 
     
@@ -39,7 +39,7 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
     end
     
     methods
-        function obj = PduParams_MCP()
+        function obj = PduParams_NoMCP()
             obj@PduParams(); 
         end
         
@@ -50,14 +50,14 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         end
         
         function value = get.VCDE(obj)
-            value = obj.VCDEMCP;
+            value = obj.VCDECell;
         end
         function value = get.VPQ(obj)
-            value = obj.VPQMCP;
+            value = obj.VPQCell;
         end
         
         function value = get.xi(obj)
-            value = obj.D * obj.KPQ / (obj.VCDE * obj.Rc^2);
+            value = obj.D * obj.KPQ / (obj.VCDE * obj.Rb^2);
         end
         function value = get.gamma(obj)
             value = 2*obj.VPQ / obj.VCDE;
@@ -74,27 +74,27 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         end
 
         function value = get.beta_a(obj)
-            value = -1/(obj.Rc*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa));
+            value = -(obj.Rb*obj.kmA)/obj.D;
             
             %simplified form when jc=0 and kcA=>0
             %value = -obj.Rc*obj.kcA/obj.D;
         end
         function value = get.epsilon_a(obj)
-            value = obj.Aout/(obj.KPQ*obj.Rc*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa));
+            value = obj.Rb*obj.Aout*obj.kmA/(obj.D*obj.KPQ);
             
             %simplified form when jc=0 and kcA=>0
             %value = (obj.Aout*obj.Rc*obj.kcA)/(obj.D*obj.KPQ);
         end
         
         function value = get.beta_p(obj)
-            value = -obj.kmP/(obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
+            value = -(obj.Rb*obj.kmP)/obj.D;
             
             %simplified form when jc=0 and kcA=>0
             %value = -obj.Rc*obj.kcP/obj.D;
         end
         
         function value = get.epsilon_p(obj)
-            value = obj.Pout*(obj.jc+obj.kmP)/(obj.KCDE*obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
+            value = obj.Rb*obj.Pout*(obj.jc+obj.kmP)/(obj.D*obj.KCDE);
             
             %simplified form when jc=0 and kcA=>0
             %value = (obj.Pout*obj.Rc*obj.kcP)/(obj.D*obj.KCDE);
