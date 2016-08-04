@@ -1,78 +1,63 @@
-function [] = sweep_params(paramToSweep)
+function [] = sweep_params(paramToSweep,lowerBound,upperBound,equalPermSwitch,kcRatio,N,params)
 % run a sweep in some parameter for the numerical solution
 
 % add paths
 add_paths
 changeplot
 
-% define a path for saving your results
-%saveLocationRoot = '/Users/niallmm/Dropbox/GitHub/Pdu/matlab/testing/';
-saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
-%saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
-
 % define baseline parameters
-p = PduParams_MCP;
-%p.kcA = 1e-3;
-%p.kcP = p.kcA;
-p.alpha =0;
+p = params;
+numberofsims= N;
+sweep = {paramToSweep,logspace(lowerBound,upperBound, numberofsims)};
 
-% =========================================================================
-% define parameter you want to change
-% =========================================================================
-
-% Define parameter sweeps in cell array
-numberofsims= 25;
-sweep = {paramToSweep,logspace(-8,8, numberofsims)};
-% first entry is the name of the parameter as defined in the class
-% (PduParams)
-
-figure
 for ii = 1:length(sweep{1,2})
     startValue=get(PduParams_MCP,sweep{1,1});
     set(p, sweep{1,1},sweep{1,2}(ii)*startValue);
-    %p.kcP = p.kcA; %keep kcX the same
+    
+    if equalPermSwitch
+        p.kcP = kcRatio*p.kcA; %keep kcX the same
+    end
 
-     % save location for this particular parameter combination run
-        
-        savefolder1 = savefolder(); % creates a folder name with date and time to use as save location
-        saveLocation = ([saveLocationRoot savefolder1 '/']);
-        mkdir(saveLocation)
-        
-        save([saveLocation 'p.mat'], 'p');
-        
     % run the simulation
     exec = FullPduModelExecutor(p);
     res = exec.RunAnalytical();
     analytical = ConstantMCPAnalyticalSolution(p);
 
-    % save results
-    save([saveLocation 'res.mat'], 'res');
-    
-%     Acyto = res.a_cyto_rad_uM/10^3;
-%     Pcyto = res.p_cyto_rad_uM/10^3;
-    
-    % plot results
     %concs in MCP and cytosol
-    loglog(sweep{1,2}(ii), res.p_MCP_uM(end,p.xnum)/1000, 'ob') %edge of MCP
-    hold on
-    plot(sweep{1,2}(ii), res.a_MCP_uM(end,p.xnum)/1000, 'or')
-    plot(sweep{1,2}(ii), res.p_MCP_uM(end,1)/1000, 'vb') %center of MCP
-    plot(sweep{1,2}(ii), res.a_MCP_uM(end,1)/1000, 'vr')
-%     plot(sweep{1,2}(ii), mean(Pcyto), 'xb')
-%     plot(sweep{1,2}(ii), mean(Acyto), 'xr')
-    %analytical solution assuming constant conc in MCP
-    plot(sweep{1,2}(ii), analytical.p_full_uM/1000, '+b')
-    plot(sweep{1,2}(ii), analytical.a_full_uM/1000, '+r')
-    
-    legend('numerical PMCP edge','numerical AMCP edge','numerical PMCP center','numerical AMCP center','analytical PMCP','analytical AMCP','Location','southeast')
+    Pfull(ii)=analytical.p_full_uM/1000;
+    Afull(ii)=analytical.a_full_uM/1000;
+    Pcenter(ii)=res.p_MCP_uM(end,1)/1000;
+    Acenter(ii)=res.a_MCP_uM(end,1)/1000;
+    Pedge(ii)=res.p_MCP_uM(end,p.xnum)/1000;
+    Aedge(ii)=res.a_MCP_uM(end,p.xnum)/1000;
 
     
 end
 
+% plot results
+loglog(sweep{1,2}, Pedge, 'o','Color',[43 172 226]./256) %edge of MCP
+hold on
+plot(sweep{1,2}, Aedge, 'o','Color',[248 149 33]./256)
+plot(sweep{1,2}, Pcenter, 'v','Color',[43 172 226]./256) %center of MCP
+plot(sweep{1,2}, Acenter, 'v','Color',[248 149 33]./256)
+%analytical solution assuming constant conc in MCP
+plot(sweep{1,2}, Pfull, '-','Color',[43 172 226]./256)
+plot(sweep{1,2}, Afull, '-','Color',[248 149 33]./256)
 xlabel(['parameter: ' sweep{1,1}])
-ylabel('A and P concentration in compartment and cytosol [mM]')
-line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color', 'b') %saturation halfmax conc of 1,2-PD for PduCDE
-line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color','r') %saturation halfmax conc of propanal for PduPQ
+ylabel('mM')
+line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color', [43 172 226]./256) %saturation halfmax conc of 1,2-PD for PduCDE
+line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color',[248 149 33]./256) %saturation halfmax conc of propanal for PduPQ
+line([get(params,sweep{1,1}) get(params,sweep{1,1})],[10^-8 10^4],'Color','k','LineStyle',':','LineWidth',1.5)
+xlim([sweep{1,2}(1) sweep{1,2}(end)])
+ax=gca;
+set(ax,'FontSize',10)
+ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
+for i=1:round(numberofsims/5):numberofsims
+    xLabels{(i-1)/round(numberofsims/5)+1}=num2str(startValue.*sweep{1,2}(i),'%1.2e');
+end
+ax.XTickLabel=xLabels;
+ax.XTickLabelRotation = 45;
+axis square
 
     
     

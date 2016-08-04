@@ -1,6 +1,6 @@
 %run sweeps through set of desired parameters
 
-params={'kmP' 'kmA' 'kcA' 'kcP' 'Pout' 'NCDE' 'NPQ'};
+params={'kmP' 'kmA' 'kcA' 'Pout'};
 
 for i=1:length(params)
     

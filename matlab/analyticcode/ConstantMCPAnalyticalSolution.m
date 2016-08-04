@@ -10,6 +10,10 @@ classdef ConstantMCPAnalyticalSolution
         a_cyto_uM;
         p_cyto_uM;
         
+        %spatially resolved solution in cytosol
+        a_cyto_rad_uM;
+        p_cyto_rad_uM;
+        
         a_satsat_uM;        %both enzymes saturated
         a_unsatunsat_uM;    %both enzymes unsaturated
         a_unsatsat_uM;      %PduCDE unsaturated
@@ -55,6 +59,9 @@ classdef ConstantMCPAnalyticalSolution
             obj.p_cyto_uM=mean(result.p_cyto_rad_uM);
             obj.a_cyto_uM=mean(result.a_cyto_rad_uM);
             
+            %also pass radial solution
+            obj.p_cyto_rad_uM=result.p_cyto_rad_uM;
+            obj.a_cyto_rad_uM=result.a_cyto_rad_uM;
             
            
         end

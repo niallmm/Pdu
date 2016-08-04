@@ -1,107 +1,80 @@
+function [] = sweep_paramsX2(paramToSweep1,lowerBound1,upperBound1,paramToSweep2,lowerBound2,upperBound2,equalPermSwitch,paritySwitch,N,params)
 % run a sweep in some parameter for the analytical solution
 
 % add paths
 add_paths
 changeplot
 
-% define a path for saving your results
-%saveLocationRoot = '/Users/niallmangan/Dropbox/CCMtesting/';
-%saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
-%saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
-
 % define baseline parameters
-p = PduParams_MCP;
-%p.kcA = 1e-4;
-%p.kcP = p.kcA;
-%p.alpha =0;
+p = params;
 
-% =========================================================================
-% define parameter you want to change
-% =========================================================================
-
-% Define parameter sweeps in cell array
-numberofsims= 50;
+numberofsims= N;
 
 
-sweep = {'kcA',logspace(-8,8, numberofsims)
-        'kcP', logspace(-8,8, numberofsims)};
-% first entry is the name of the parameter as defined in the class
-% (Pdu  Params)
+sweep = {paramToSweep1,logspace(lowerBound1,upperBound1, numberofsims)
+        paramToSweep2,logspace(lowerBound2,upperBound2, numberofsims)};
 
-a = figure;
+startValue1=get(params,sweep{1,1});
+startValue2=get(params,sweep{2,1});
 
 A=zeros(length(sweep{1,2}),length(sweep{2,2}));
 P=zeros(length(sweep{1,2}),length(sweep{2,2}));
 Acyto=zeros(length(sweep{1,2}),length(sweep{2,2}));
 Pcyto=zeros(length(sweep{1,2}),length(sweep{2,2}));
+fluxA=zeros(length(sweep{1,2}),length(sweep{2,2}));
 
 for ii = 1:length(sweep{1,2})
-        startValue1=get(PduParams_MCP,sweep{1,1});
         set(p, sweep{1,1},sweep{1,2}(ii)*startValue1);
     for jj = 1:length(sweep{2,2})
-        startValue2=get(PduParams_MCP,sweep{2,1});
         set(p, sweep{2,1},sweep{2,2}(jj)*startValue2);
-        % set the compartment permeabilities equal !!! take out if you want
-        % them to be different 
-        %p.kcP = p.kcA; %
+        if equalPermSwitch
+            p.kcP = p.kcA; 
+        end
    
-
-     % save location for this particular parameter combination run
-        
-        savefolder1 = savefolder(); % creates a folder name with date and time to use as save location
-        %saveLocation = ([saveLocationRoot savefolder1 '/']);
-        %mkdir(saveLocation)
-        
-        %save([saveLocation 'p.mat'], 'p');
-        
-    % run the simulation
     res = ConstantMCPAnalyticalSolution(p);
-
-    % save results
-    %save([saveLocation 'res.mat'], 'res');
     
     A(ii,jj)=res.a_full_uM/1000;
     P(ii,jj)=res.p_full_uM/1000;
     Acyto(ii,jj)=res.a_cyto_uM/1000;
     Pcyto(ii,jj)=res.p_cyto_uM/1000;
-
+    fluxA(ii,jj)=p.kmA*Acyto(ii,jj)*1000*p.SAcell/1000;
+    
     end
     
 end
 
+
+
 %plot results
+contourf(log10(sweep{2,2}),log10(sweep{1,2}),(P*1000/p.KCDE>1)+(A*1000/p.KPQ>1),[-0.1 0.9 1.9]);
+colormap([211 211 211;248 149 33;43 172 226]./256)
+hold on
+contour(log10(sweep{2,2}),log10(sweep{1,2}),Acyto*1000,[0 0.01],'--r','LineWidth',1.5);
+contour(log10(sweep{2,2}),log10(sweep{1,2}),Acyto*1000,[0 1],'-r','LineWidth',1.5);
 
-subplot(2,2,1)
-surf(log10(sweep{1,2}),log10(sweep{2,2}),log10(A));
-ylabel(['parameter: ' sweep{1,1}])
-xlabel(['parameter: ' sweep{2,1}])
-zlabel('A concentration in compartment [mM]')
+line([0 0],[min(log10(sweep{1,2})) max(log10(sweep{1,2}))],'Color','k','LineStyle',':','LineWidth',1.5)
+line([min(log10(sweep{2,2})) max(log10(sweep{2,2}))],[0 0],'Color','k','LineStyle',':','LineWidth',1.5)
 
-subplot(2,2,2)
-surf(log10(sweep{1,2}),log10(sweep{2,2}),log10(P));
-ylabel(['parameter: ' sweep{1,1}])
-xlabel(['parameter: ' sweep{2,1}])
-zlabel('P concentration in compartment [mM]')
+if paritySwitch
+    line([min(log10(sweep{1,2})) max(log10(sweep{1,2}))], [min(log10(sweep{2,2})) max(log10(sweep{2,2}))],'Color','g')
+end
 
-subplot(2,2,3)
-surf(log10(sweep{1,2}),log10(sweep{2,2}),log10(Acyto));
-ylabel(['parameter: ' sweep{1,1}])
-xlabel(['parameter: ' sweep{2,1}])
-zlabel('A concentration in cytosol [mM]')
+ylabel([sweep{1,1}])
+xlabel([sweep{2,1}])
+ax=gca;
+set(ax,'FontSize',10)
+ax.YTick=log10(sweep{1,2}(1:round(numberofsims/5):numberofsims));
+for i=1:round(numberofsims/5):numberofsims
+    yLabels{(i-1)/round(numberofsims/5)+1}=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+end
+ax.YTickLabel=yLabels;
+ax.XTick=log10(sweep{2,2}(1:round(numberofsims/5):numberofsims));
+for i=1:round(numberofsims/5):numberofsims
+    xLabels{(i-1)/round(numberofsims/5)+1}=num2str(startValue2.*sweep{2,2}(i),'%1.2e');
+end
+ax.XTickLabel=xLabels;
+ax.XTickLabelRotation = 45;
+axis square
 
-subplot(2,2,4)
-surf(log10(sweep{1,2}),log10(sweep{2,2}),log10(Pcyto));
-ylabel(['parameter: ' sweep{1,1}])
-xlabel(['parameter: ' sweep{2,1}])
-zlabel('P concentration in cytosol [mM]')
-
-figure
-surf(log10(sweep{1,2}),log10(sweep{2,2}),log10(A-Acyto));
-ylabel(['parameter: ' sweep{1,1}])
-xlabel(['parameter: ' sweep{2,1}])
-zlabel('AMCP-ACyto [mM]')
-
-%line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color', 'b') %saturation halfmax conc of 1,2-PD for PduCDE
-%line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color','r') %saturation halfmax conc of propanal for PduPQ
     
     

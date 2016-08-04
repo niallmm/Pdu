@@ -1,77 +1,63 @@
-function [] = sweep_params_ConstantMCP(paramToSweep)
+function [] = sweep_params_ConstantMCP(paramToSweep,lowerBound,upperBound,equalPermSwitch,kcRatio,N,params)
 % run a sweep in some parameter for the numerical solution
 
 % add paths
 add_paths
 changeplot
 
-% define a path for saving your results
-%saveLocationRoot = '/Users/niallmm/Dropbox/GitHub/Pdu/matlab/CCMtesting/';
-%saveLocationRoot = 'C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\testing\';
-saveLocationRoot = '/Users/chrisjakobson/Dropbox/Berkeley/Lab/pdumodeling/Pdu/matlab/testing/';
-
 % define baseline parameters
-p = PduParams_MCP;
-%p.kcA = 1e-3;
-%p.kcP = p.kcA;
-%p.alpha =0;
+p = params;
 
-% =========================================================================
-% define parameter you want to change
-% =========================================================================
+numberofsims= N;
 
-% Define parameter sweeps in cell array
-numberofsims= 50;
+sweep = {paramToSweep,logspace(lowerBound,upperBound, numberofsims)};
 
-sweep = {paramToSweep,logspace(-8,6, numberofsims)};
+startValue=get(params,sweep{1,1});
 
-% first entry is the name of the parameter as defined in the class
-% (PduParams)
-
-figure
 for ii = 1:length(sweep{1,2})
-    startValue=get(PduParams_MCP,sweep{1,1});
     set(p, sweep{1,1},sweep{1,2}(ii)*startValue);
-    %p.kcP = p.kcA; %keep kcX the same
-
-     % save location for this particular parameter combination run
-        
-        savefolder1 = savefolder(); % creates a folder name with date and time to use as save location
-        saveLocation = ([saveLocationRoot savefolder1 '/']);
-        %mkdir(saveLocation)
-        
-        %save([saveLocation 'p.mat'], 'p');
-        
+    
+    if equalPermSwitch
+        p.kcP = kcRatio*p.kcA; %keep kcX the same
+    end
+    
     % run the simulation
     res = ConstantMCPAnalyticalSolution(p);
 
-    % save results
-    %save([saveLocation 'res.mat'], 'res');
-    
-    % plot results
-    %concs in MCP
-    loglog(sweep{1,2}(ii), res.p_full_uM/1000, 'og')
-    hold on
-    plot(sweep{1,2}(ii), res.a_full_uM/1000, 'om')
-    plot(sweep{1,2}(ii), res.p_satsat_uM/1000, 'xb')
-    plot(sweep{1,2}(ii), res.a_satsat_uM/1000, 'xr')
-    plot(sweep{1,2}(ii), res.p_unsatunsat_uM/1000, '+b')
-    plot(sweep{1,2}(ii), res.a_unsatunsat_uM/1000, '+r')
-    plot(sweep{1,2}(ii), res.a_unsatsat_uM/1000, 'sr')
-    plot(sweep{1,2}(ii), res.a_satunsat_uM/1000, 'vr')
-    plot(sweep{1,2}(ii), res.p_lokcA_uM/1000, '>b')
-    plot(sweep{1,2}(ii), res.a_lokcA_uM/1000, '>r')
-    
-    legend('full P','full A','sat P','satsatA','unsat P','unsatunsatA',...
-        'unsatsatA','satunsatA','low kcA P','low kcA A','Location','southeast')
-
+    Pfull(ii)=res.p_full_uM/1000;
+    Afull(ii)=res.a_full_uM/1000;
+    Psatsat(ii)=res.p_satsat_uM/1000;
+    Punsatunsat(ii)=res.p_unsatunsat_uM/1000;
+    Aunsatunsat(ii)=res.a_unsatunsat_uM/1000;
+    Asatunsat(ii)=res.a_satunsat_uM/1000;
+    Pcyto(ii)=res.p_cyto_uM/1000;
+    Acyto(ii)=res.a_cyto_uM/1000;
     
 end
 
+% plot results
+loglog(sweep{1,2},Pfull,'--','Color',[43 172 226]./256,'LineWidth',1.5)
+hold on
+plot(sweep{1,2},Pcyto, '-.','Color',[43 172 226]./256,'LineWidth',1.5)
+xlim([sweep{1,2}(1) sweep{1,2}(end)])
+ylim([10^-8 10^4])
+plot(sweep{1,2},Afull,'--','Color',[248 149 33]./256,'LineWidth',1.5)
+plot(sweep{1,2},Acyto, '-.','Color',[248 149 33]./256,'LineWidth',1.5) 
 xlabel(['parameter: ' sweep{1,1}])
-ylabel('A and P concentration in compartment and cytosol [mM]')
-line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color', 'b') %saturation halfmax conc of 1,2-PD for PduCDE
-line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color','r') %saturation halfmax conc of propanal for PduPQ
-
+ylabel('mM')
+line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color',[43 172 226]./256,'LineWidth',1.5) %saturation halfmax conc of 1,2-PD for PduCDE
+line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color',[248 149 33]./256,'LineWidth',1.5) %saturation halfmax conc of propanal for PduPQ
+line([get(params,sweep{1,1}) get(params,sweep{1,1})],[10^-8 10^4],'Color','k','LineStyle',':','LineWidth',1.5)
+xlim([sweep{1,2}(1) sweep{1,2}(end)])
+ylim([10^-8 10^4])
+ax=gca;
+set(ax,'FontSize',10)
+ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
+for i=1:round(numberofsims/5):numberofsims
+    xLabels{(i-1)/round(numberofsims/5)+1}=num2str(startValue.*sweep{1,2}(i),'%1.2e');
+end
+ax.XTickLabel=xLabels;
+ax.XTickLabelRotation = 45;
+axis square
     
     
