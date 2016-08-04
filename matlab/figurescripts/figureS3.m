@@ -4,6 +4,6 @@ clear variables
 
 M=3;
 
-figure
+figure('units','normalized','outerposition',[0 0 1 1])
 
 sweepPerformance('kmA',-5,2,1,3,M);

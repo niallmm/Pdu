@@ -2,7 +2,7 @@
 %CMJ 20160804
 clear variables
 
-figure
+figure('units','normalized','outerposition',[0 0 1 1])
 
 M=50;
 

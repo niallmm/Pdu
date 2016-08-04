@@ -21,6 +21,8 @@ addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab')
 addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\numericalcode')
 % analytical code path
 addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\analyticcode')
+% figure code path
+addpath('C:\Users\groupadmin\Dropbox\Berkeley\Lab\pdumodeling\Pdu\matlab\figurescripts')
 
 % %CMJ macbook
 % % main path folder for code
