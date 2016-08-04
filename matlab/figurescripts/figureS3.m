@@ -2,7 +2,7 @@
 %CMJ 20160804
 clear variables
 
-M=3;
+M=50;
 
 figure('units','normalized','outerposition',[0 0 1 1])
 

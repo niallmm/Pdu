@@ -47,7 +47,7 @@ xlabel(['parameter: ' sweep{1,1}])
 ylabel('mM')
 line([sweep{1,2}(1) sweep{1,2}(end)],[p.KCDE/1000 p.KCDE/1000], 'Color', [43 172 226]./256) %saturation halfmax conc of 1,2-PD for PduCDE
 line([sweep{1,2}(1) sweep{1,2}(end)],[p.KPQ/1000 p.KPQ/1000], 'Color',[248 149 33]./256) %saturation halfmax conc of propanal for PduPQ
-line([get(params,sweep{1,1}) get(params,sweep{1,1})],[10^-8 10^4],'Color','k','LineStyle',':','LineWidth',1.5)
+line([1 1],ylim,'Color','k','LineStyle',':','LineWidth',1.5)
 xlim([sweep{1,2}(1) sweep{1,2}(end)])
 ax=gca;
 set(ax,'FontSize',10)

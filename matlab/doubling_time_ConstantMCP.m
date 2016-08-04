@@ -46,6 +46,7 @@ xlabel(['parameter: ' sweep{1,1}])
 ylabel('Doubling Time (hrs)')
 xlim([sweep{1,2}(1) sweep{1,2}(end)])
 ylim([1 10^4])
+line([1 1],ylim,'Color','k','LineStyle',':','LineWidth',1.5)
 ax=gca;
 set(ax,'FontSize',10)
 ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));

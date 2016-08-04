@@ -4,7 +4,7 @@ clear variables
 
 figure('units','normalized','outerposition',[0 0 1 1])
 
-M=3;
+M=50;
 
 parameters=PduParams_NoMCP;
 subplot(2,2,1)

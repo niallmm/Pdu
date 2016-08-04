@@ -4,7 +4,7 @@ clear variables
 
 figure('units','normalized','outerposition',[0 0 1 1])
 
-M=50;
+M=100;
 
 subplot(1,2,1)
 doubling_time_ConstantMCP('kcA',1,M);

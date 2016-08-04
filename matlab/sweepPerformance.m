@@ -15,14 +15,16 @@ AcytoNoMCP=zeros(numberofsims,1);
 AMCPMCP=zeros(numberofsims,1);
 AMCPNoMCP=zeros(numberofsims,1);
 
+startValue1=get(PduParams_MCP,sweep{1,1});
+startValue2=get(PduParams_NoMCP,sweep{1,1});
+
 for ii = 1:length(sweep{1,2})
-    startValue1=get(PduParams_MCP,sweep{1,1});
+    
     set(p1, sweep{1,1},sweep{1,2}(ii)*startValue1);
     if equalPermSwitch
         p1.kcP = p1.kcA; %keep kcX the same
     end
     
-    startValue2=get(PduParams_NoMCP,sweep{1,1});
     set(p2, sweep{1,1},sweep{1,2}(ii)*startValue2);
     if equalPermSwitch
         p2.kcP = p2.kcA; %keep kcX the same
@@ -50,6 +52,7 @@ if plotSwitch==1
     legend('ACytoMCP','ACytoNoMCP','AMCPMCP','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel({'Absolute Concentrations' '(mM)'})
+    line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
     set(ax,'FontSize',10)
@@ -70,6 +73,7 @@ if plotSwitch==1
     legend('Flux w MCPs','Flux w/o MCPs','Leakage w MCPs','Leakage w/o MCPs','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel({'Absolute Fluxes' '\mu mol/cell-s'})
+    line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
     set(ax,'FontSize',10)
@@ -89,6 +93,7 @@ if plotSwitch==2
     legend('Relative Carbon Flux','Relative Leakage','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel('Relative Flux')
+    line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
     set(ax,'FontSize',10)
@@ -110,6 +115,7 @@ if plotSwitch==3
     legend('ACytoMCP','ACytoNoMCP','AMCPMCP','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel({'Absolute Concentrations' '(mM)'})
+    line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
     set(ax,'FontSize',10)
@@ -130,6 +136,7 @@ if plotSwitch==3
     legend('Flux w MCPs','Flux w/o MCPs','Leakage w MCPs','Leakage w/o MCPs','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel({'Absolute Fluxes' '\mu mol/cell-s'})
+    line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
     set(ax,'FontSize',10)
@@ -148,6 +155,7 @@ if plotSwitch==3
     legend('Relative Carbon Flux','Relative Leakage','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel('Relative Flux')
+    line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
     set(ax,'FontSize',10)
