@@ -65,12 +65,14 @@ ax=gca;
 set(ax,'FontSize',10)
 ax.YTick=log10(sweep{1,2}(1:round(numberofsims/5):numberofsims));
 for i=1:round(numberofsims/5):numberofsims
-    yLabels{(i-1)/round(numberofsims/5)+1}=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+    labelString=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+    yLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
 end
 ax.YTickLabel=yLabels;
 ax.XTick=log10(sweep{2,2}(1:round(numberofsims/5):numberofsims));
 for i=1:round(numberofsims/5):numberofsims
-    xLabels{(i-1)/round(numberofsims/5)+1}=num2str(startValue2.*sweep{2,2}(i),'%1.2e');
+    labelString=num2str(startValue2.*sweep{2,2}(i),'%1.2e');
+    xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
 end
 ax.XTickLabel=xLabels;
 ax.XTickLabelRotation = 45;

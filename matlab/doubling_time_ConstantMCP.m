@@ -12,9 +12,10 @@ p = PduParams_MCP;
 numberofsims= N;
 
 sweep = {paramToSweep,logspace(-2,3, numberofsims)};
+startValue=get(PduParams_MCP,sweep{1,1});
 
 for ii = 1:length(sweep{1,2})
-    startValue=get(PduParams_MCP,sweep{1,1});
+   
     set(p, sweep{1,1},sweep{1,2}(ii)*startValue);
     
     if equalPermSwitch
@@ -42,19 +43,25 @@ end
 
 loglog(sweep{1,2},tDouble,'-','Color',[43 172 226]./256,'LineWidth',2)
 hold on
+fill([sweep{1,2}(1), sweep{1,2}(end), sweep{1,2}(end), sweep{1,2}(1)],[10, 10, 5, 5],[0.7 0.7 0.7],'EdgeColor','none')
+plot(sweep{1,2},tDouble,'-','Color',[43 172 226]./256,'LineWidth',2)
+
 xlabel(['parameter: ' sweep{1,1}])
 ylabel('Doubling Time (hrs)')
 xlim([sweep{1,2}(1) sweep{1,2}(end)])
 ylim([1 10^4])
 line([1 1],ylim,'Color','k','LineStyle',':','LineWidth',1.5)
 ax=gca;
-set(ax,'FontSize',10)
+set(ax,'FontSize',12)
+set(ax ,'Layer', 'Top')
 ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
 for i=1:round(numberofsims/5):numberofsims
-    xLabels{(i-1)/round(numberofsims/5)+1}=num2str(get(PduParams_MCP,sweep{1,1}).*sweep{1,2}(i),'%1.2e');
+    labelString=num2str(startValue.*sweep{1,2}(i),'%1.2e');
+    xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
 end
 ax.XTickLabel=xLabels;
 ax.XTickLabelRotation = 45;
 axis square
+
 
     

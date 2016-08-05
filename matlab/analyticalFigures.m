@@ -31,9 +31,12 @@ figureS6;
 set(gcf,'PaperPositionMode','auto')
 print('figureS6','-dsvg','-r0')
 
-figureS8;
+figureS7;
 set(gcf,'PaperPositionMode','auto')
 print('figureS8','-dsvg','-r0')
 
+figureS9;
+set(gcf,'PaperPositionMode','auto')
+print('figureS8','-dsvg','-r0')
 
 

@@ -4,24 +4,22 @@ clear variables
 
 figure('units','normalized','outerposition',[0 0 1 1])
 
-M=50;
-
 parameters=PduParams_NoMCP;
-subplot(2,2,1)
+subplot(2,3,1)
 [rCDE, rPQ, fluxA, AcytoMean, AMCPMean] = GradientsAcrossCellNoMCP(parameters,1);
 
 parameters=PduParams_MCP;
 parameters.kcA=10e10;
 parameters.kcP=10e10;
-subplot(2,2,2)
+subplot(2,3,2)
 [rCDE, rPQ, fluxA, AcytoMean, AMCPMean] = GradientsAcrossCell(parameters,1);
 
 parameters=PduParams_MCP;
-subplot(2,2,3)
+subplot(2,3,4)
 [rCDE, rPQ, fluxA, AcytoMean, AMCPMean] = GradientsAcrossCell(parameters,1);
 
 parameters=PduParams_MCP;
 parameters.kcA=10e-10;
 parameters.kcP=10e-10;
-subplot(2,2,4)
+subplot(2,3,5)
 [rCDE, rPQ, fluxA, AcytoMean, AMCPMean] = GradientsAcrossCell(parameters,1);

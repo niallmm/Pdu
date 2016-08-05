@@ -1,17 +1,15 @@
-%script to generate Figure S7
+%script to generate Figure S6
 %CMJ 20160804
 clear variables
 
-M=50;
-
 figure('units','normalized','outerposition',[0 0 1 1])
 
-sweepPerformance('kcA',-5,2,1,3,M);
+M=100;
 
-figure
+parameters=PduParams_MCP;
+subplot(1,2,1)
+sweep_params_ConstantMCP('kcA',-5,5,1,0.1,M,parameters);
 
-sweepPerformance('kcA',-5,2,0,3,M);
-
-figure
-
-sweepPerformance('kcP',-5,2,0,3,M);
+parameters=PduParams_MCP;
+subplot(1,2,2)
+sweep_params_ConstantMCP('kcA',-5,5,1,10,M,parameters);

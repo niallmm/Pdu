@@ -1,4 +1,4 @@
-function [] = sweepPerformance(paramToSweep,lowerBound,upperBound,equalPermSwitch,plotSwitch,N)
+function [] = sweepPerformance(paramToSweep,lowerBound,upperBound,equalPermSwitch,plotSwitch,N,multiPlot,plotRow)
 %calculate MCP performance ratio for a range of paramToSweep
 
 p1=PduParams_MCP;
@@ -58,7 +58,8 @@ if plotSwitch==1
     set(ax,'FontSize',10)
     ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
     for i=1:round(numberofsims/5):numberofsims
-        xLabels{(i-1)/round(numberofsims/5)+1}=num2str(get(PduParams_MCP,sweep{1,1}).*sweep{1,2}(i),'%1.2e');
+        labelString=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+        xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
     end
     ax.XTickLabel=xLabels;
     ax.XTickLabelRotation = 45;
@@ -76,10 +77,11 @@ if plotSwitch==1
     line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
-    set(ax,'FontSize',10)
+    set(ax,'FontSize',12)
     ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
     for i=1:round(numberofsims/5):numberofsims
-        xLabels{(i-1)/round(numberofsims/5)+1}=num2str(get(PduParams_MCP,sweep{1,1}).*sweep{1,2}(i),'%1.2e');
+        labelString=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+        xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
     end
     ax.XTickLabel=xLabels;
     ax.XTickLabelRotation = 45;
@@ -96,10 +98,11 @@ if plotSwitch==2
     line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
-    set(ax,'FontSize',10)
+    set(ax,'FontSize',12)
     ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
     for i=1:round(numberofsims/5):numberofsims
-        xLabels{(i-1)/round(numberofsims/5)+1}=num2str(get(PduParams_MCP,sweep{1,1}).*sweep{1,2}(i),'%1.2e');
+        labelString=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+        xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
     end
     ax.XTickLabel=xLabels;
     ax.XTickLabelRotation = 45;
@@ -107,61 +110,61 @@ if plotSwitch==2
 end
 
 if plotSwitch==3
-    subplot(1,3,1)
+    subplot(multiPlot,3,(plotRow-1)*3+1)
     loglog(sweep{1,2},AcytoMCP,'Color',[38 230 0]./256,'LineWidth',2)
     hold on
     plot(sweep{1,2},AcytoNoMCP,'Color',[102 25 255]./256,'LineWidth',2)
     plot(sweep{1,2},AMCPMCP,'--','Color',[38 230 0]./256,'LineWidth',2)
-    legend('ACytoMCP','ACytoNoMCP','AMCPMCP','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel({'Absolute Concentrations' '(mM)'})
     line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
-    set(ax,'FontSize',10)
+    set(ax,'FontSize',12)
     ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
     for i=1:round(numberofsims/5):numberofsims
-        xLabels{(i-1)/round(numberofsims/5)+1}=num2str(get(PduParams_MCP,sweep{1,1}).*sweep{1,2}(i),'%1.2e');
+        labelString=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+        xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
     end
     ax.XTickLabel=xLabels;
     ax.XTickLabelRotation = 45;
     axis square
 
-    subplot(1,3,2)
+    subplot(multiPlot,3,(plotRow-1)*3+2)
     loglog(sweep{1,2},rPQ1,'Color',[38 230 0]./256,'LineWidth',2)
     hold on
     plot(sweep{1,2},rPQ2,'Color',[102 25 255]./256,'LineWidth',2)
     plot(sweep{1,2},fluxA1,'--','Color',[38 230 0]./256,'LineWidth',2)
     plot(sweep{1,2},fluxA2,'--','Color',[102 25 255]./256,'LineWidth',2)
-    legend('Flux w MCPs','Flux w/o MCPs','Leakage w MCPs','Leakage w/o MCPs','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel({'Absolute Fluxes' '\mu mol/cell-s'})
     line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
-    set(ax,'FontSize',10)
+    set(ax,'FontSize',12)
     ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
     for i=1:round(numberofsims/5):numberofsims
-        xLabels{(i-1)/round(numberofsims/5)+1}=num2str(get(PduParams_MCP,sweep{1,1}).*sweep{1,2}(i),'%1.2e');
+        labelString=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+        xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
     end
     ax.XTickLabel=xLabels;
     ax.XTickLabelRotation = 45;
     axis square
     
-    subplot(1,3,3)
+    subplot(multiPlot,3,(plotRow-1)*3+3)
     loglog(sweep{1,2},relPQ,'Color',[38 230 0]./256,'LineWidth',2)
     hold on
     plot(sweep{1,2},relFlux,'--','Color',[38 230 0]./256,'LineWidth',2)
-    legend('Relative Carbon Flux','Relative Leakage','Location','SouthEast')
     xlabel(['parameter: ' sweep{1,1}])
     ylabel('Relative Flux')
     line([1 1],ylim,'LineStyle','--','Color','k')
     xlim([sweep{1,2}(1) sweep{1,2}(end)])
     ax=gca;
-    set(ax,'FontSize',10)
+    set(ax,'FontSize',12)
     ax.XTick=(sweep{1,2}(1:round(numberofsims/5):numberofsims));
     for i=1:round(numberofsims/5):numberofsims
-        xLabels{(i-1)/round(numberofsims/5)+1}=num2str(get(PduParams_MCP,sweep{1,1}).*sweep{1,2}(i),'%1.2e');
+        labelString=num2str(startValue1.*sweep{1,2}(i),'%1.2e');
+        xLabels{(i-1)/round(numberofsims/5)+1}=[labelString(1:3) 'x10^{', labelString(6:end), '}'];
     end
     ax.XTickLabel=xLabels;
     ax.XTickLabelRotation = 45;
