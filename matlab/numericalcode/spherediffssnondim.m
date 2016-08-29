@@ -1,6 +1,5 @@
 function dy = spherediffssnondim(t,y,param)
 % pass parameters in PduParams struct -CMJ
-% has both HCO3- and CO2 diffusing
 % the equations in x have been discretized using finite-difference method
 
 %numerical integration parameters

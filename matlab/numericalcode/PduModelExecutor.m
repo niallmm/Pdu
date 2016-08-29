@@ -17,7 +17,7 @@ classdef PduModelExecutor
         % implemented generically.
         function results = RunNumerical(obj)
             p = obj.pdu_params;  % shorthand
-            initv = zeros(2, p.xnum); % initialize vectors for CO2 and HCO3- concentrations
+            initv = zeros(2, p.xnum); % initialize vectors for concentrations
             [r, h, c, fintime, t] = driverssnondim(p.xnum, p, initv);
             results = NumericalPduModelSolution(p, r, h, c, fintime, t);
         end

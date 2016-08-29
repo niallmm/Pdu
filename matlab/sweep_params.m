@@ -1,5 +1,6 @@
 function [] = sweep_params(paramToSweep,lowerBound,upperBound,equalPermSwitch,kcRatio,N,params)
 % run a sweep in some parameter for the numerical solution
+%also allows kcA~=kcP (based on equalPermSwitch, kcRatio)
 
 % add paths
 add_paths

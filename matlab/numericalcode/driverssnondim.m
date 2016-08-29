@@ -3,10 +3,7 @@ function [r1, p1, a1, fintime, t] = driverssnondim(xnum, pdu_params, initv)
 % Non-linear Diffusion Equation Solver
 % uses matlab ode functions
 % calls setgrid.m, initold.m, variablechangesep.m
-% cytosol.m calculates solutions outside csome
 % checks error
-% plots solution
-% for two concentrations
 % 
 % concentrations returned are non-dimensional and need to be converted.\
 % pass parameters to ODEs (spherediffssnondim) in PduParams struct -CMJ

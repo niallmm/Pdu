@@ -33,10 +33,10 @@ print('figureS6','-dsvg','-r0')
 
 figureS7;
 set(gcf,'PaperPositionMode','auto')
-print('figureS8','-dsvg','-r0')
+print('figureS7','-dsvg','-r0')
 
 figureS9;
 set(gcf,'PaperPositionMode','auto')
-print('figureS8','-dsvg','-r0')
+print('figureS9','-dsvg','-r0')
 
 

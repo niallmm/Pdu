@@ -13,10 +13,10 @@ classdef NumericalPduModelSolution
         a_nondim;       % nondimensional concentration of propanal over time and space.
         p_mM;           % mM concentration of 1,2-PD over time and space.
         a_mM;           % mM concentration of propanal over time and space.
-        a_MCP_uM;     % uM concentration of total bicarbonate in carboxysome.
-        p_MCP_uM;     % uM concentration of CO2 in carboxysome.
-        a_MCP_mM;     % mM concentration of total bicarbonate in carboxysome.
-        p_MCP_mM;     % mM concentration of CO2 in carboxysome.
+        a_MCP_uM;     % uM concentration of propanal in MCP.
+        p_MCP_uM;     % uM concentration of 1,2-PD in MCP.
+        a_MCP_mM;     % mM concentration of propanal in MCP.
+        p_MCP_mM;     % mM concentration of 1,2-PD in MCP.
 
         fintime;        % final time of the numerical solution -- needs to be long enough to get to steady state
         t;              % vector of time values the numerical solver solved at -- this is only meaningful to check that we reached steady state

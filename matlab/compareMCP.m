@@ -18,6 +18,7 @@ p4.kcP=p4.kcA;
 
 [rCDE(4), rPQ(4), fluxA(4), AcytoMean(4), AMCPMean(4)] = GradientsAcrossCell(p4,0);
 
+%plot cytosolic aldehyde concentration
 subplot(2,3,1)
 ax=bar(AcytoMean',0.8);
 set(gca,'YScale','log')
@@ -31,6 +32,7 @@ ylim([10^-8, 10^2])
 xlim([0,5])
 axis square
 
+%plot kinetically relevant aldehyde concentration
 subplot(2,3,2)
 ax=bar(AMCPMean',0.8);
 set(gca,'YScale','log')
@@ -44,7 +46,7 @@ ylim([10^-8, 10^2])
 xlim([0,5])
 axis square
 
-
+%plot flux through PduP/Q
 subplot(2,3,4)
 ax=bar(rPQ',0.8);
 set(gca,'YScale','log')
@@ -56,6 +58,7 @@ ylabel({'PduP/Q Flux' '(\mu mol/cell-s)'})
 xlim([0,5])
 axis square
 
+%plot flux of aldehyde across cell membrane
 subplot(2,3,5)
 ax=bar(fluxA',0.8);
 set(gca,'YScale','log')

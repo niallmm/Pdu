@@ -1,9 +1,9 @@
 classdef PduParams< matlab.mixin.SetGet
-    % Object defining CCM parameters - encapsulates various dependent
+    % Object defining Pdu parameters - encapsulates various dependent
     % calculations of rates and volumes. 
     
     % Mutable properties that may depend on the model context.
-    %now includes parameters for numerical integration -CMJ
+    % includes parameters for numerical integration -CMJ
     properties
         jc = 0;        % active uptake rate of 1,2-PD(cm/s)
         kcA = 1e-5;      % permeability of MCP to propanal (cm/s)
@@ -45,22 +45,20 @@ classdef PduParams< matlab.mixin.SetGet
         VMCP  % volume of MCP
         SAcell  % surface area of the cell
         
-        % Dependent paramters for the case that CA & RuBisCO are uniformly 
-        % co-localized to the carboxysome.
+        % Dependent paramters for the case that PduCDE & PduP/Q are uniformly 
+        % co-localized to the MCP.
         VCDEMCP    % uM/s PduCDE max reaction rate/concentration
-        VPQMCP     % maximum rate of aldehyde consumption by PduP/PduQ
+        VPQMCP     % uM/s maximum rate of aldehyde consumption by PduP/PduQ
         
-        % Dependent paramters for the case that CA & RuBisCO are uniformly 
+        % Dependent paramters for the case that PduCDE & PduP/Q are uniformly 
         % distributed through the cytoplasm.
         VCDECell    % uM/s PduCDE max reaction rate/concentration
-        VPQCell     % maximum rate of aldehyde consumption by PduP/PduQ
+        VPQCell     % uM/s maximum rate of aldehyde consumption by PduP/PduQ
 
     end
     
     properties (Abstract)
         % Non-dimensional params
-        % See supplementary material and pdf document NonDimEqns2 for how these
-        % Formulas contain the cytosol solutions.
         xi      % ratio of rate of diffusion across cell to rate of 
                 %dehydration reaction of carbonic anhydrase (D/Rc^2)/(VCDE/KPQ)
         gamma   % ratio of PduP/PduQ and PduCDE max rates (2*VPQ)/(VCDE)
@@ -73,7 +71,7 @@ classdef PduParams< matlab.mixin.SetGet
         Xp  % grouped params = D/(Rc^2 kcP) + 1/Rc - 1/Rb [1/cm]
         
         % Calculated appropriate to the volume in which the enzymes are
-        % contained which depends on the situation (in cbsome or not).
+        % contained which depends on the situation (in MCP or not).
         VCDE    % uM/s PduCDE max reaction rate/concentration
         VPQ     % maximum rate of aldehyde consumption by PduP/PduQ
     end
@@ -109,9 +107,4 @@ classdef PduParams< matlab.mixin.SetGet
 
     end
     
-    methods (Abstract)
-        % Calculate the optimal jc value (active bicarbonate influx).
-        % Calculated differently depending on the model.
-        CalcOptimalJc(obj)
-    end
 end

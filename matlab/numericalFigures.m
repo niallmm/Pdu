@@ -1,4 +1,5 @@
 %script to generate figures requiring numerical solution
+%also saves ouput as .svg for Illustrator import
 %CAUTION: lengthy runtime
 %CMJ 20160804
 

@@ -1,11 +1,9 @@
 classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
-    % Object defining CCM parameters - encapsulates various dependent
+    % Object defining Pdu parameters - encapsulates various dependent
     % calculations of rates and volumes. 
     
     properties (Dependent)
         % Non-dimensional params
-        % See supplementary material and pdf document NonDimEqns2 for how these
-        % Formulas contain the cytosol solutions.
         xi      % ratio of rate of diffusion across cell to rate of 
                 %dehydration reaction of carbonic anhydrase (D/Rc^2)/(VCDE/KPQ)
         gamma   % ratio of PduP/PduQ and PduCDE max rates (2*VPQ)/(VCDE)
@@ -17,7 +15,7 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         Xa  % grouped params = D/(Rc^2 kcA) + 1/Rc - 1/Rb [1/cm]
         Xp  % grouped params = D/(Rc^2 kcP) + 1/Rc - 1/Rb [1/cm]
         
-        %Non-dim params for analytical solution assuming constant conc in
+        %Non-dim params for analytical solution assuming constant concentrations in
         %MCP
         U;
         V;
@@ -32,8 +30,8 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
         Dprime;
         Eprime;
         
-        % Calculated appropriate to the volume in which the enzymes are
-        % contained which depends on the situation (in cbsome or not).
+        % Calculate appropriate to the volume in which the enzymes are
+        % contained which depends on the situation (in MCP or cytosol).
         VCDE    % uM/s PduCDE max reaction rate/concentration
         VPQ     % maximum rate of aldehyde consumption by PduP/PduQ
     end
@@ -43,12 +41,7 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
             obj@PduParams(); 
         end
         
-        function jc = CalcOptimalJc(obj, Hmax)
-            p = obj;
-            Hcytop = @(jc) calcHcytoDiff_Csome(jc, p, Hmax);
-            jc = fzero(Hcytop, 1e-2); 
-        end
-        
+       
         function value = get.VCDE(obj)
             value = obj.VCDEMCP;
         end
@@ -75,29 +68,21 @@ classdef PduParams_MCP < PduParams &  matlab.mixin.SetGet
 
         function value = get.beta_a(obj)
             value = -1/(obj.Rc*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa));
-            
-            %simplified form when jc=0 and kcA=>0
-            %value = -obj.Rc*obj.kcA/obj.D;
+
         end
         function value = get.epsilon_a(obj)
             value = obj.Aout/(obj.KPQ*obj.Rc*(obj.D/(obj.kmA*obj.Rb^2)+obj.Xa));
-            
-            %simplified form when jc=0 and kcA=>0
-            %value = (obj.Aout*obj.Rc*obj.kcA)/(obj.D*obj.KPQ);
+
         end
         
         function value = get.beta_p(obj)
             value = -obj.kmP/(obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
-            
-            %simplified form when jc=0 and kcA=>0
-            %value = -obj.Rc*obj.kcP/obj.D;
+
         end
         
         function value = get.epsilon_p(obj)
             value = obj.Pout*(obj.jc+obj.kmP)/(obj.KCDE*obj.Rc*(obj.D/obj.Rb^2+obj.kmP*obj.Xp));
-            
-            %simplified form when jc=0 and kcA=>0
-            %value = (obj.Pout*obj.Rc*obj.kcP)/(obj.D*obj.KCDE);
+
         end
         
         function value = get.U(obj)

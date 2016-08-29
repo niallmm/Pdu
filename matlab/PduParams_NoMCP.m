@@ -1,11 +1,9 @@
 classdef PduParams_NoMCP < PduParams &  matlab.mixin.SetGet
-    % Object defining CCM parameters - encapsulates various dependent
+    % Object defining Pdu parameters - encapsulates various dependent
     % calculations of rates and volumes. 
     
     properties (Dependent)
         % Non-dimensional params
-        % See supplementary material and pdf document NonDimEqns2 for how these
-        % Formulas contain the cytosol solutions.
         xi      % ratio of rate of diffusion across cell to rate of 
                 %dehydration reaction of carbonic anhydrase (D/Rc^2)/(VCDE/KPQ)
         gamma   % ratio of PduP/PduQ and PduCDE max rates (2*VPQ)/(VCDE)
@@ -42,13 +40,7 @@ classdef PduParams_NoMCP < PduParams &  matlab.mixin.SetGet
         function obj = PduParams_NoMCP()
             obj@PduParams(); 
         end
-        
-        function jc = CalcOptimalJc(obj, Hmax)
-            p = obj;
-            Hcytop = @(jc) calcHcytoDiff_Csome(jc, p, Hmax);
-            jc = fzero(Hcytop, 1e-2); 
-        end
-        
+               
         function value = get.VCDE(obj)
             value = obj.VCDECell;
         end
@@ -75,29 +67,22 @@ classdef PduParams_NoMCP < PduParams &  matlab.mixin.SetGet
 
         function value = get.beta_a(obj)
             value = -(obj.Rb*obj.kmA)/obj.D;
-            
-            %simplified form when jc=0 and kcA=>0
-            %value = -obj.Rc*obj.kcA/obj.D;
+
         end
         function value = get.epsilon_a(obj)
             value = obj.Rb*obj.Aout*obj.kmA/(obj.D*obj.KPQ);
             
-            %simplified form when jc=0 and kcA=>0
-            %value = (obj.Aout*obj.Rc*obj.kcA)/(obj.D*obj.KPQ);
+
         end
         
         function value = get.beta_p(obj)
             value = -(obj.Rb*obj.kmP)/obj.D;
-            
-            %simplified form when jc=0 and kcA=>0
-            %value = -obj.Rc*obj.kcP/obj.D;
+
         end
         
         function value = get.epsilon_p(obj)
             value = obj.Rb*obj.Pout*(obj.jc+obj.kmP)/(obj.D*obj.KCDE);
-            
-            %simplified form when jc=0 and kcA=>0
-            %value = (obj.Pout*obj.Rc*obj.kcP)/(obj.D*obj.KCDE);
+
         end
         
         function value = get.U(obj)

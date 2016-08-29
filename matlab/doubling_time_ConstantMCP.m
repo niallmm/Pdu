@@ -1,5 +1,5 @@
 function [] = doubling_time_ConstantMCP(paramToSweep,equalPermSwitch,N)
-% run a sweep in some parameter for the numerical solution
+% predict the cell doubling time as a function of a model parameter
 
 % add paths
 add_paths

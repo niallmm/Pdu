@@ -1,5 +1,7 @@
 function [] = sweepPerformance(paramToSweep,lowerBound,upperBound,equalPermSwitch,plotSwitch,N,multiPlot,plotRow)
 %calculate MCP performance ratio for a range of paramToSweep
+%calculates absolute and relative PduP/Q flux and leakage values
+%plotSwitch controls which plots (absolute, relative) to display
 
 p1=PduParams_MCP;
 p2=PduParams_NoMCP;

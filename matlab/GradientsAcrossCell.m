@@ -1,4 +1,6 @@
 function [rCDE, rPQ, fluxA, AcytoMean, AMCPMean] = GradientsAcrossCell(params,plotSwitch)
+%plot the intracellular concentrations of 1,2-PD and propionaldehyde
+%assuming constant concentrations inside the MCP
 
 % add paths
 add_paths;

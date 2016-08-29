@@ -1,5 +1,5 @@
 function [] = sweep_paramsX2(paramToSweep1,lowerBound1,upperBound1,paramToSweep2,lowerBound2,upperBound2,equalPermSwitch,paritySwitch,N,params)
-% run a sweep in some parameter for the analytical solution
+% run a sweep in two parameters for the analytical solution
 
 % add paths
 add_paths

@@ -1,4 +1,6 @@
 function [rCDE, rPQ, fluxA, AcytoMean, AMCPMean] = GradientsAcrossCellNoMCP(params,plotSwitch)
+%plot the intracellular concentrations of 1,2-PD and propionaldehyde
+%assuming absence of MCP
 
 add_paths;
 
@@ -19,6 +21,7 @@ AMCPMean=mean(A);
 rPQ=p.VPQ*mean(A)*1000/(p.KPQ+mean(A)*1000)*(p.Vcell/1000);
 rCDE=p.VCDE*mean(P)*1000/(p.KCDE+mean(P)*1000)*(p.Vcell/1000);
 fluxA=p.kmA*(A(end)-p.Aout/1000)*1000*p.SAcell/1000;
+%if desired, also print output
 %fprintf('rCDE is %4.2e umol/cell-s, rPQ is %4.2e umol/cell-s, rCDE-rPQ is %4.2e umol/cell-s and fluxA is %4.2e umol/cell-s \r',rCDE,rPQ,rCDE-rPQ,fluxA)
 %fprintf('rCDE is %4.2e molecules/cell-s, rPQ is %4.2e molecules/cell-s, rCDE-rPQ is %4.2e molecules/cell-s and fluxA is %4.2e molecules/cell-s \r',rCDE*6.02*10^17,rPQ*6.02*10^17,(rCDE-rPQ)*6.02*10^17,fluxA*6.02*10^17)
 
